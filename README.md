@@ -1,215 +1,217 @@
+<div align="right">
+  <strong>🇺🇸 English</strong> | <a href="./README.zh.md">🇨🇳 中文</a> | <a href="./README.ja.md">🇯🇵 日本語</a> | <a href="./README.es.md">🇪🇸 Español</a> | <a href="./README.fr.md">🇫🇷 Français</a>
+</div>
+
 # sw-superpower 🦸
 
-> 为 AI 编程 Agent 设计的软件工程技能集 (Superpowers 风格)
+> A Superpowers-style skill set for AI coding agents — structured software engineering workflows from brainstorming to code review.
 
-[![中文](https://img.shields.io/badge/lang-中文-brightgreen.svg)](./README.md)
-
-这是一套完整的软件开发工作流指导技能，帮助 AI 编程 Agent 以系统化、可复现的方式完成从需求分析到代码审查的每个环节。
+A complete set of software engineering workflow skills that help AI coding agents complete every step from requirements analysis to code review in a systematic, reproducible way.
 
 ---
 
-## 📦 项目概述
+## 📦 Overview
 
-`sw-superpower` 是一套为 [Kimi Code CLI](https://github.com/MoonshotAI/kimi-code) 设计的 Superpowers 风格技能集。它将成熟的软件工程实践（TDD、代码审查、系统化调试）封装成结构化、可复用的 Agent 技能。
+`sw-superpower` is a Superpowers-style skill set designed for [Kimi Code CLI](https://github.com/MoonshotAI/kimi-code). It encapsulates mature software engineering practices (TDD, code review, systematic debugging) into structured, reusable agent skills.
 
-### 核心理念
+### Core Principles
 
-- **流程驱动**: 每个 Skill 定义明确的触发条件和执行流程
-- **铁律优先**: 不可违反的规则放在最前面
-- **压力测试**: 通过 TDD 方式创建和验证 Skill
-- **渐进交付**: 从头脑风暴到代码交付的完整工作流
+- **Process-Driven**: Each skill defines clear trigger conditions and execution workflows
+- **Rules First**: Non-negotiable rules are placed at the forefront
+- **Stress-Tested**: Skills are created and validated through TDD
+- **Incremental Delivery**: Complete workflow from brainstorming to code delivery
 
 ---
 
-## 🗂️ 项目结构
+## 🗂️ Project Structure
 
 ```
 sw-superpower/
-├── sw-brainstorming/              # 头脑风暴与需求分析
-├── sw-writing-specs/              # 编写实现计划
-├── sw-subagent-development/       # 子 Agent 驱动开发
-├── sw-test-driven-dev/            # 测试驱动开发
-├── sw-code-review/                # 代码审查
-├── sw-systematic-debugging/       # 系统化调试
-├── sw-verification-before-completion/  # 完成前验证
-├── sw-finishing-branch/           # 完成开发分支
-├── sw-using-git-worktrees/        # Git 工作区管理
-└── sw-writing-skills/             # 编写新技能（元 Skill）
+├── sw-brainstorming/              # Brainstorming & requirements analysis
+├── sw-writing-specs/              # Writing implementation plans
+├── sw-subagent-development/       # Subagent-driven development
+├── sw-test-driven-dev/            # Test-driven development
+├── sw-code-review/                # Code review
+├── sw-systematic-debugging/       # Systematic debugging
+├── sw-verification-before-completion/  # Pre-completion verification
+├── sw-finishing-branch/           # Finishing development branch
+├── sw-using-git-worktrees/        # Git worktree management
+└── sw-writing-skills/             # Writing new skills (meta skill)
 ```
 
 ---
 
-## 🚀 核心工作流
+## 🚀 Core Workflow
 
-完整的软件开发工作流按以下顺序执行：
+The complete software development workflow executes in the following order:
 
 ```
-开始新功能
+Start New Feature
     ↓
-sw-brainstorming (头脑风暴与设计)
-    ↓ 输出: dev/specs/YYYY-MM-DD--feature.md
-sw-writing-specs (编写实现计划)
-    ↓ 输出: dev/specs/plans/YYYY-MM-DD--feature-plan.md
-sw-subagent-development (子 Agent 驱动开发)
-    ├── sw-test-driven-dev (每个任务遵循 TDD)
-    └── sw-code-review (两阶段审查)
+sw-brainstorming (Brainstorming & Design)
+    ↓ Output: dev/specs/YYYY-MM-DD--feature.md
+sw-writing-specs (Writing Implementation Plan)
+    ↓ Output: dev/specs/plans/YYYY-MM-DD--feature-plan.md
+sw-subagent-development (Subagent-Driven Development)
+    ├── sw-test-driven-dev (TDD for each task)
+    └── sw-code-review (Two-phase review)
     ↓
-sw-verification-before-completion (完成前验证)
+sw-verification-before-completion (Pre-Completion Verification)
     ↓
-sw-finishing-branch (完成分支)
+sw-finishing-branch (Finishing Branch)
 ```
 
 ---
 
-## 📋 Skill 一览
+## 📋 Skills Overview
 
-| Skill | 用途 | 触发条件 |
-|-------|------|----------|
-| **sw-brainstorming** | 将想法转化为完整设计和 Spec | 开始新功能开发 |
-| **sw-writing-specs** | 创建详细的实现计划 | 设计已批准，需要执行计划 |
-| **sw-subagent-development** | 使用子 Agent 执行计划 | 有实现计划，任务相对独立 |
-| **sw-test-driven-dev** | 强制 RED-GREEN-REFACTOR 循环 | 实现任何功能或修复 Bug |
-| **sw-code-review** | 两阶段代码审查 | 完成任务或功能后 |
-| **sw-systematic-debugging** | 系统化 Bug 调查 | 发现 Bug 或测试失败 |
-| **sw-verification-before-completion** | 标记完成前验证 | 准备标记任务完成 |
-| **sw-finishing-branch** | 验证、决策、清理分支 | 所有任务完成 |
-| **sw-using-git-worktrees** | 创建隔离工作区 | 开始新功能，需要并行开发 |
-| **sw-writing-skills** | 创建和验证新 Skill | 需要创建新技能 |
+| Skill | Purpose | Trigger Condition |
+|-------|---------|-------------------|
+| **sw-brainstorming** | Transform ideas into complete design and specs | Starting new feature development |
+| **sw-writing-specs** | Create detailed implementation plans | Design approved, need execution plan |
+| **sw-subagent-development** | Execute plans using subagents | Have implementation plan, tasks are independent |
+| **sw-test-driven-dev** | Enforce RED-GREEN-REFACTOR cycle | Implementing any feature or fixing bugs |
+| **sw-code-review** | Two-phase code review | After completing task or feature |
+| **sw-systematic-debugging** | Systematic bug investigation | Bugs found or tests failing |
+| **sw-verification-before-completion** | Pre-completion verification | Ready to mark task as complete |
+| **sw-finishing-branch** | Verify, decide, and clean up branch | All tasks completed |
+| **sw-using-git-worktrees** | Create isolated workspaces | Starting new feature, need parallel development |
+| **sw-writing-skills** | Create and validate new skills | Need to create a new skill |
 
 ---
 
-## 🎯 快速开始
+## 🎯 Quick Start
 
-### 安装
+### Installation
 
-1. 克隆仓库到 Kimi Code CLI 技能目录：
+1. Clone the repository to your Kimi Code CLI skills directory:
 
 ```bash
-# 假设 Kimi Code CLI 技能目录为 ~/.kimi/skills/
+# Assuming Kimi Code CLI skills directory is ~/.kimi/skills/
 cd ~/.kimi/skills/
 git clone https://github.com/your-username/sw-superpower.git
 ```
 
-2. 重启 Kimi Code CLI 或重新加载技能。
+2. Restart Kimi Code CLI or reload skills.
 
-### 使用示例
+### Usage Example
 
-当你开始一个新功能时，Agent 会自动识别并应用相应 Skill：
+When you start a new feature, the agent automatically recognizes and applies the appropriate skill:
 
 ```
-用户: 我要开发一个用户认证功能
+User: I want to develop a user authentication feature
 
-Agent: [自动应用 sw-brainstorming Skill]
-      1. 探索项目上下文...
-      2. 提出澄清问题...
-      3. 提出 2-3 种方案...
-      4. 分节呈现设计...
-      5. 编写 Spec 文档 → dev/specs/2026-04-18--user-auth.md
-      6. 调用 sw-writing-specs 创建实现计划...
+Agent: [Automatically applies sw-brainstorming Skill]
+      1. Explore project context...
+      2. Ask clarifying questions...
+      3. Propose 2-3 approaches...
+      4. Present design in sections...
+      5. Write spec document → dev/specs/2026-04-18--user-auth.md
+      6. Invoke sw-writing-specs to create implementation plan...
 ```
 
 ---
 
-## 🏗️ Skill 结构
+## 🏗️ Skill Structure
 
-每个 Skill 是自包含的目录，遵循统一结构：
+Each skill is a self-contained directory following a unified structure:
 
 ```
 sw-<skill-name>/
-├── SKILL.md                    # 主技能文件（必需）
-├── subagent-prompts/           # 子 Agent 提示词（可选）
+├── SKILL.md                    # Main skill file (required)
+├── subagent-prompts/           # Subagent prompts (optional)
 │   └── <name>-prompt.md
-└── templates/                  # 模板文件（可选）
+└── templates/                  # Template files (optional)
     └── <template>.md
 ```
 
-### SKILL.md 格式
+### SKILL.md Format
 
 ```markdown
 ---
 name: skill-name
-description: "Use when [具体触发条件]"
+description: "Use when [specific trigger condition]"
 ---
 
-# Skill 名称
+# Skill Name
 
-## 铁律
-关键规则，不可违反
+## Iron Rules
+Key rules that must not be violated
 
-## 流程
-流程图和详细步骤
+## Process
+Flowchart and detailed steps
 
-## 红旗 - 立即停止
-违规迹象列表
+## Red Flags - Stop Immediately
+List of violation signs
 
-## 常见借口表
-| 借口 | 现实 |
-|------|------|
+## Common Excuses Table
+| Excuse | Reality |
+|--------|---------|
 
-## 集成
-前置和后续 Skill
+## Integration
+Prerequisite and subsequent skills
 
-## 输出示例
-期望的输出格式
+## Output Example
+Expected output format
 ```
 
 ---
 
-## 🔑 关键原则
+## 🔑 Key Principles
 
-### YAGNI 原则
+### YAGNI Principle
 
 > You Aren't Gonna Need It
 
-- 不要添加 Spec 未要求的功能
-- 不要过度设计
-- 不要假设未来需求
+- Don't add features not required by the spec
+- Don't over-engineer
+- Don't assume future requirements
 
-### 子 Agent 开发原则
+### Subagent Development Principles
 
-- 每个任务使用全新子 Agent
-- 子 Agent 不应继承会话上下文
-- 提供完整任务文本和上下文
+- Use a fresh subagent for each task
+- Subagents should not inherit session context
+- Provide complete task text and context
 
-### 审查原则
+### Review Principles
 
-- **客观公正**: 基于规范，不是个人偏好
-- **建设性**: 提供具体改进建议
-- **优先级**: 关注严重问题
-
----
-
-## 🧪 测试策略
-
-本项目采用 TDD 方式开发 Skill：
-
-1. **先测试，后 Skill** - 没有例外
-2. **创建压力场景** - 3+ 种压力组合测试
-3. **记录基线失败** - 观察无 Skill 时的失败行为
-4. **编写 Skill 解决失败** - 针对观察到的失败
-5. **验证合规性** - 带 Skill 重新测试
-6. **关闭漏洞** - 找到新借口，添加对策
+- **Objective**: Based on standards, not personal preferences
+- **Constructive**: Provide specific improvement suggestions
+- **Prioritized**: Focus on critical issues
 
 ---
 
-## 🤝 贡献指南
+## 🧪 Testing Strategy
 
-### 创建新 Skill
+This project develops skills using TDD:
 
-1. 使用 `sw-writing-skills` Skill 指导创建流程
-2. 遵循 TDD 方式：先测试，后编写
-3. 创建 3+ 压力场景测试
-4. 记录基线失败行为
-5. 编写 Skill 解决特定失败
-6. 验证合规性，关闭漏洞
+1. **Test First, Skill Second** - No exceptions
+2. **Create Stress Scenarios** - 3+ pressure combination tests
+3. **Document Baseline Failures** - Observe failure behavior without skill
+4. **Write Skill to Address Failures** - Target observed failures
+5. **Verify Compliance** - Re-test with skill
+6. **Close Loopholes** - Find new excuses, add countermeasures
 
-### 提交规范
+---
+
+## 🤝 Contributing
+
+### Creating a New Skill
+
+1. Use `sw-writing-skills` skill to guide the creation process
+2. Follow TDD approach: test first, then write
+3. Create 3+ stress scenario tests
+4. Document baseline failure behavior
+5. Write skill to address specific failures
+6. Verify compliance, close loopholes
+
+### Commit Convention
 
 ```bash
-# 创建新 Skill
+# Create new skill
 feat: add sw-<skill-name> for <purpose>
 
-# 更新现有 Skill
+# Update existing skill
 fix: resolve <issue> in sw-<skill-name>
 
 docs: update <section> in sw-<skill-name>
@@ -217,21 +219,21 @@ docs: update <section> in sw-<skill-name>
 
 ---
 
-## 📄 许可证
+## 📄 License
 
 [MIT](./LICENSE)
 
 ---
 
-## 🙏 致谢
+## 🙏 Acknowledgements
 
-- 基于 [Superpowers](https://github.com/anthropics/superpowers) 技能格式
-- 灵感来源于成熟的软件工程实践
+- Based on the [Superpowers](https://github.com/anthropics/superpowers) skill format
+- Inspired by mature software engineering practices
 
 ---
 
 <div align="center">
 
-**让 AI 编程更系统化、可预测、高质量** 🚀
+**Making AI programming more systematic, predictable, and high-quality** 🚀
 
 </div>
