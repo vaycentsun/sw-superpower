@@ -84,11 +84,29 @@ sw-finishing-branch (ブランチ完了)
 
 ### インストール
 
-1. Kimi Code CLI のスキルディレクトリにリポジトリをクローンします：
+**推奨：** このリポジトリを使用プロジェクトの skills ディレクトリに git サブモジュールとして追加します：
 
 ```bash
-# Kimi Code CLI のスキルディレクトリが ~/.kimi/skills/ であると仮定
-cd ~/.kimi/skills/
+# 使用プロジェクトの skills ディレクトリにサブモジュールとして追加
+cd <あなたのプロジェクト>/skills/
+git submodule add https://github.com/your-username/sw-superpower.git
+git submodule update --init --recursive
+```
+
+**後でサブモジュールを更新する場合：**
+
+```bash
+cd <あなたのプロジェクト>/skills/sw-superpower
+git pull origin main
+cd <あなたのプロジェクト>
+git add skills/sw-superpower
+git commit -m "Update sw-superpower submodule"
+```
+
+または直接クローン（バージョン管理を使用するプロジェクトには推奨されません）：
+
+```bash
+cd <あなたのプロジェクト>/skills/
 git clone https://github.com/your-username/sw-superpower.git
 ```
 

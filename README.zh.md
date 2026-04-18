@@ -84,11 +84,29 @@ sw-finishing-branch (完成分支)
 
 ### 安装
 
-1. 克隆仓库到 Kimi Code CLI 技能目录：
+**推荐方式：** 使用 git submodule 将本仓库添加到使用项目的 skills 目录：
 
 ```bash
-# 假设 Kimi Code CLI 技能目录为 ~/.kimi/skills/
-cd ~/.kimi/skills/
+# 添加 submodule 到使用项目的 skills 目录
+cd <你的项目>/skills/
+git submodule add https://github.com/your-username/sw-superpower.git
+git submodule update --init --recursive
+```
+
+**后续更新 submodule：**
+
+```bash
+cd <你的项目>/skills/sw-superpower
+git pull origin main
+cd <你的项目>
+git add skills/sw-superpower
+git commit -m "Update sw-superpower submodule"
+```
+
+或直接克隆（不推荐用于使用版本控制的项目）：
+
+```bash
+cd <你的项目>/skills/
 git clone https://github.com/your-username/sw-superpower.git
 ```
 

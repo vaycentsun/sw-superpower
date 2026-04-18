@@ -84,11 +84,29 @@ sw-finishing-branch (Finishing Branch)
 
 ### Installation
 
-1. Clone the repository to your Kimi Code CLI skills directory:
+**Recommended:** Add this repository as a git submodule to your project's skills directory:
 
 ```bash
-# Assuming Kimi Code CLI skills directory is ~/.kimi/skills/
-cd ~/.kimi/skills/
+# Add as submodule to your project's skills directory
+cd <your-project>/skills/
+git submodule add https://github.com/your-username/sw-superpower.git
+git submodule update --init --recursive
+```
+
+**To update the submodule later:**
+
+```bash
+cd <your-project>/skills/sw-superpower
+git pull origin main
+cd <your-project>
+git add skills/sw-superpower
+git commit -m "Update sw-superpower submodule"
+```
+
+Or clone directly (not recommended for projects using version control):
+
+```bash
+cd <your-project>/skills/
 git clone https://github.com/your-username/sw-superpower.git
 ```
 

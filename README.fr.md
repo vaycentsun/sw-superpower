@@ -84,11 +84,29 @@ sw-finishing-branch (Achèvement de Branche)
 
 ### Installation
 
-1. Clonez le référentiel dans votre répertoire de compétences Kimi Code CLI :
+**Recommandé :** Ajoutez ce référentiel comme sous-module git au répertoire de skills de votre projet :
 
 ```bash
-# En supposant que le répertoire de compétences Kimi Code CLI est ~/.kimi/skills/
-cd ~/.kimi/skills/
+# Ajouter comme sous-module au répertoire de skills du projet
+cd <votre-projet>/skills/
+git submodule add https://github.com/your-username/sw-superpower.git
+git submodule update --init --recursive
+```
+
+**Pour mettre à jour le sous-module plus tard :**
+
+```bash
+cd <votre-projet>/skills/sw-superpower
+git pull origin main
+cd <votre-projet>
+git add skills/sw-superpower
+git commit -m "Update sw-superpower submodule"
+```
+
+Ou clonez directement (non recommandé pour les projets utilisant le contrôle de version) :
+
+```bash
+cd <votre-projet>/skills/
 git clone https://github.com/your-username/sw-superpower.git
 ```
 

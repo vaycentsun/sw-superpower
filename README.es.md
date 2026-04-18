@@ -84,11 +84,29 @@ sw-finishing-branch (Finalización de Rama)
 
 ### Instalación
 
-1. Clona el repositorio en tu directorio de habilidades de Kimi Code CLI:
+**Recomendado:** Agrega este repositorio como un submódulo git al directorio de skills de tu proyecto:
 
 ```bash
-# Asumiendo que el directorio de habilidades de Kimi Code CLI es ~/.kimi/skills/
-cd ~/.kimi/skills/
+# Agregar como submódulo al directorio de skills del proyecto
+cd <tu-proyecto>/skills/
+git submodule add https://github.com/your-username/sw-superpower.git
+git submodule update --init --recursive
+```
+
+**Para actualizar el submódulo más tarde:**
+
+```bash
+cd <tu-proyecto>/skills/sw-superpower
+git pull origin main
+cd <tu-proyecto>
+git add skills/sw-superpower
+git commit -m "Update sw-superpower submodule"
+```
+
+O clona directamente (no recomendado para proyectos que usan control de versiones):
+
+```bash
+cd <tu-proyecto>/skills/
 git clone https://github.com/your-username/sw-superpower.git
 ```
 
