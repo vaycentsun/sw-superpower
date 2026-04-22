@@ -1,0 +1,172 @@
+digraph STYLE_GUIDE {
+    // 我们的流程 DSL 风格指南，用 DSL 自身编写
+
+    // 节点类型示例及其形状
+    subgraph cluster_node_types {
+        label="节点类型和形状";
+
+        // 问题是菱形
+        "这是问题吗？" [shape=diamond];
+
+        // 动作是方框（默认）
+        "执行动作" [shape=box];
+
+        // 命令是纯文本
+        "git commit -m 'msg'" [shape=plaintext];
+
+        // 状态是椭圆
+        "当前状态" [shape=ellipse];
+
+        // 警告是八角形
+        "停止：关键警告" [shape=octagon, style=filled, fillcolor=red, fontcolor=white];
+
+        // 入口/出口是双圆
+        "流程开始" [shape=doublecircle];
+        "流程完成" [shape=doublecircle];
+
+        // 每个示例
+        "测试通过了吗？" [shape=diamond];
+        "先写测试" [shape=box];
+        "npm test" [shape=plaintext];
+        "我卡住了" [shape=ellipse];
+        "绝不使用 git add -A" [shape=octagon, style=filled, fillcolor=red, fontcolor=white];
+    }
+
+    // 边命名约定
+    subgraph cluster_edge_types {
+        label="边标签";
+
+        "二元决策？" [shape=diamond];
+        "是路径" [shape=box];
+        "否路径" [shape=box];
+
+        "二元决策？" -> "是路径" [label="是"];
+        "二元决策？" -> "否路径" [label="否"];
+
+        "多选？" [shape=diamond];
+        "选项 A" [shape=box];
+        "选项 B" [shape=box];
+        "选项 C" [shape=box];
+
+        "多选？" -> "选项 A" [label="条件 A"];
+        "多选？" -> "选项 B" [label="条件 B"];
+        "多选？" -> "选项 C" [label="其他"];
+
+        "流程 A 完成" [shape=doublecircle];
+        "流程 B 开始" [shape=doublecircle];
+
+        "流程 A 完成" -> "流程 B 开始" [label="触发", style=dotted];
+    }
+
+    // 命名模式
+    subgraph cluster_naming_patterns {
+        label="命名模式";
+
+        // 问题以 ? 结尾
+        "我应该做 X 吗？";
+        "这可以是 Y 吗？";
+        "Z 为真吗？";
+        "我做了 W 吗？";
+
+        // 动作以动词开头
+        "写测试";
+        "搜索模式";
+        "提交更改";
+        "请求帮助";
+
+        // 命令是字面量
+        "grep -r 'pattern' .";
+        "git status";
+        "npm run build";
+
+        // 状态描述情境
+        "测试失败";
+        "构建完成";
+        "卡在错误上";
+    }
+
+    // 流程结构模板
+    subgraph cluster_structure {
+        label="流程结构模板";
+
+        "触发：某事发生" [shape=ellipse];
+        "初始检查？" [shape=diamond];
+        "主要动作" [shape=box];
+        "git status" [shape=plaintext];
+        "另一个检查？" [shape=diamond];
+        "替代动作" [shape=box];
+        "停止：不要做这个" [shape=octagon, style=filled, fillcolor=red, fontcolor=white];
+        "流程完成" [shape=doublecircle];
+
+        "触发：某事发生" -> "初始检查？";
+        "初始检查？" -> "主要动作" [label="是"];
+        "初始检查？" -> "替代动作" [label="否"];
+        "主要动作" -> "git status";
+        "git status" -> "另一个检查？";
+        "另一个检查？" -> "流程完成" [label="正常"];
+        "另一个检查？" -> "停止：不要做这个" [label="问题"];
+        "替代动作" -> "流程完成";
+    }
+
+    // 何时使用哪种形状
+    subgraph cluster_shape_rules {
+        label="何时使用每种形状";
+
+        "选择形状" [shape=ellipse];
+
+        "它是决策吗？" [shape=diamond];
+        "使用菱形" [shape=diamond, style=filled, fillcolor=lightblue];
+
+        "它是命令吗？" [shape=diamond];
+        "使用纯文本" [shape=plaintext, style=filled, fillcolor=lightgray];
+
+        "它是警告吗？" [shape=diamond];
+        "使用八角形" [shape=octagon, style=filled, fillcolor=pink];
+
+        "它是入口/出口吗？" [shape=diamond];
+        "使用双圆" [shape=doublecircle, style=filled, fillcolor=lightgreen];
+
+        "它是状态吗？" [shape=diamond];
+        "使用椭圆" [shape=ellipse, style=filled, fillcolor=lightyellow];
+
+        "默认：使用方框" [shape=box, style=filled, fillcolor=lightcyan];
+
+        "选择形状" -> "它是决策吗？";
+        "它是决策吗？" -> "使用菱形" [label="是"];
+        "它是决策吗？" -> "它是命令吗？" [label="否"];
+        "它是命令吗？" -> "使用纯文本" [label="是"];
+        "它是命令吗？" -> "它是警告吗？" [label="否"];
+        "它是警告吗？" -> "使用八角形" [label="是"];
+        "它是警告吗？" -> "它是入口/出口吗？" [label="否"];
+        "它是入口/出口吗？" -> "使用双圆" [label="是"];
+        "它是入口/出口吗？" -> "它是状态吗？" [label="否"];
+        "它是状态吗？" -> "使用椭圆" [label="是"];
+        "它是状态吗？" -> "默认：使用方框" [label="否"];
+    }
+
+    // 好 vs 坏示例
+    subgraph cluster_examples {
+        label="好 vs 坏示例";
+
+        // 好：具体且形状正确
+        "测试失败" [shape=ellipse];
+        "读取错误消息" [shape=box];
+        "能复现吗？" [shape=diamond];
+        "git diff HEAD~1" [shape=plaintext];
+        "绝不忽略错误" [shape=octagon, style=filled, fillcolor=red, fontcolor=white];
+
+        "测试失败" -> "读取错误消息";
+        "读取错误消息" -> "能复现吗？";
+        "能复现吗？" -> "git diff HEAD~1" [label="是"];
+
+        // 坏：模糊且形状错误
+        bad_1 [label="有问题", shape=box];  // 应该是椭圆（状态）
+        bad_2 [label="修复它", shape=box];  // 太模糊
+        bad_3 [label="检查", shape=box];  // 应该是菱形
+        bad_4 [label="运行命令", shape=box];  // 应该是带实际命令的纯文本
+
+        bad_1 -> bad_2;
+        bad_2 -> bad_3;
+        bad_3 -> bad_4;
+    }
+}

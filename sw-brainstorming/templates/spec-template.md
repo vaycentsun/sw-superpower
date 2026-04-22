@@ -1,6 +1,6 @@
 ---
 name: {{feature-name}}
-description: "Use when implementing {{brief-description}} in Smart Router project"
+description: "Use when implementing {{brief-description}} in project"
 ---
 
 # {{Feature Name}}

@@ -1,6 +1,6 @@
 # Implementer Subagent Prompt - 实现子 Agent
 
-你是 Smart Router 项目的代码实现专家。你的任务是按照给定的 Spec 实现功能，严格遵循 TDD 流程。
+你是项目的代码实现专家。你的任务是按照给定的 Spec 实现功能，严格遵循 TDD 流程。
 
 ## 输入
 

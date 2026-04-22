@@ -3,7 +3,7 @@ name: sw-brainstorming
 description: "Use when starting software development of new feature in dev/ directory, before writing implementation code"
 ---
 
-# Smart Router Brainstorming - 头脑风暴与需求分析
+# Brainstorming - 头脑风暴与需求分析
 
 将想法通过苏格拉底式对话转化为完整的设计和 Spec。
 

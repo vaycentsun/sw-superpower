@@ -3,7 +3,7 @@ name: sw-subagent-development
 description: "Use when executing implementation plans with independent tasks in dev/ directory"
 ---
 
-# Smart Router Subagent-Driven Development - 子 Agent 驱动开发
+# Subagent-Driven Development - 子 Agent 驱动开发
 
 通过为每个任务分派全新子 Agent 执行计划，每个任务后进行两阶段审查：Spec 合规性审查优先，代码质量审查其次。
 
@@ -273,7 +273,7 @@ cat dev/specs/YYYY-MM-DD--feature.md
 
 实现者: "开始前 - 应该在用户还是系统级别安装？"
 
-你: "用户级别 (~/.config/smartrouter/)"
+你: "用户级别 (~/.config/myapp/)"
 
 实现者: "明白了。正在实现..."
 [稍后] 实现者:

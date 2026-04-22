@@ -12,7 +12,7 @@ Un ensemble complet de compétences de flux de travail d'ingénierie logicielle 
 
 ## 📦 Vue d'Ensemble
 
-`sw-superpower` est un ensemble de compétences style Superpowers conçu pour [Kimi Code CLI](https://github.com/MoonshotAI/kimi-code). Il encapsule les pratiques matures d'ingénierie logicielle (TDD, révision de code, débogage systématique) en compétences d'agent structurées et réutilisables.
+`sw-superpower` est un ensemble de compétences style Superpowers conçu pour [OpenCode](https://opencode.ai) et d'autres plateformes de codage AI. Il encapsule les pratiques matures d'ingénierie logicielle (TDD, révision de code, débogage systématique) en compétences d'agent structurées et réutilisables.
 
 ### Principes Fondamentaux
 
@@ -31,11 +31,15 @@ sw-superpower/
 ├── sw-writing-specs/              # Rédaction des plans d'implémentation
 ├── sw-subagent-development/       # Développement piloté par sous-agent
 ├── sw-test-driven-dev/            # Développement piloté par les tests
-├── sw-code-review/                # Révision de code
+├── sw-requesting-code-review/     # Demander une révision de code
+├── sw-receiving-code-review/      # Recevoir une révision de code
 ├── sw-systematic-debugging/       # Débogage systématique
+├── sw-dispatching-parallel-agents/# Dispatch parallèle d'agents
+├── sw-executing-plans/            # Exécution de plans
 ├── sw-verification-before-completion/  # Vérification préalable à l'achèvement
 ├── sw-finishing-branch/           # Achèvement de branche de développement
 ├── sw-using-git-worktrees/        # Gestion des worktrees Git
+├── sw-using-superpowers/          # Bootstrap du système de compétences (entrée principale)
 └── sw-writing-skills/             # Rédaction de nouvelles compétences (méta-compétence)
 ```
 
@@ -54,7 +58,8 @@ sw-writing-specs (Rédaction du Plan d'Implémentation)
     ↓ Sortie : dev/specs/plans/YYYY-MM-DD--feature-plan.md
 sw-subagent-development (Développement Piloté par Sous-Agent)
     ├── sw-test-driven-dev (TDD pour chaque tâche)
-    └── sw-code-review (Révision en deux phases)
+    ├── sw-requesting-code-review (Révision après tâches)
+    └── sw-receiving-code-review (Gérer le feedback de révision)
     ↓
 sw-verification-before-completion (Vérification Préalable à l'Achèvement)
     ↓
@@ -71,12 +76,16 @@ sw-finishing-branch (Achèvement de Branche)
 | **sw-writing-specs** | Créer des plans d'implémentation détaillés | Conception approuvée, besoin d'un plan d'exécution |
 | **sw-subagent-development** | Exécuter les plans en utilisant des sous-agents | Avoir un plan d'implémentation, les tâches sont indépendantes |
 | **sw-test-driven-dev** | Appliquer le cycle RED-GREEN-REFACTOR | Implémenter toute fonctionnalité ou corriger des bogues |
-| **sw-code-review** | Révision de code en deux phases | Après avoir terminé une tâche ou une fonctionnalité |
+| **sw-requesting-code-review** | Dispatcher un sous-agent réviseur | Après tâche, avant merge |
+| **sw-receiving-code-review** | Gérer le feedback de révision externe | Lors de la réception de commentaires |
 | **sw-systematic-debugging** | Investigation systématique des bogues | Bogues trouvés ou tests échoués |
+| **sw-dispatching-parallel-agents** | Workflows concurrents de sous-agents | 2+ tâches indépendantes |
+| **sw-executing-plans** | Exécuter les plans par lots dans la même session | Avoir un plan, ne pas utiliser de sous-agents |
 | **sw-verification-before-completion** | Vérification préalable à l'achèvement | Prêt à marquer la tâche comme terminée |
 | **sw-finishing-branch** | Vérifier, décider et nettoyer la branche | Toutes les tâches terminées |
 | **sw-using-git-worktrees** | Créer des espaces de travail isolés | Démarrer une nouvelle fonctionnalité, besoin de développement parallèle |
 | **sw-writing-skills** | Créer et valider de nouvelles compétences | Besoin de créer une nouvelle compétence |
+| **sw-using-superpowers** | Bootstrap du système de compétences | Début de chaque conversation |
 
 ---
 
@@ -110,7 +119,7 @@ cd <votre-projet>/skills/
 git clone https://github.com/your-username/sw-superpower.git
 ```
 
-2. Redémarrez Kimi Code CLI ou rechargez les compétences.
+2. Redémarrez OpenCode ou rechargez les compétences.
 
 ### Exemple d'Utilisation
 

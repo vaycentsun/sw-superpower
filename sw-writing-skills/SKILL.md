@@ -3,9 +3,9 @@ name: sw-writing-skills
 description: "Use when creating new skills, editing existing skills, or verifying skills work correctly"
 ---
 
-# Smart Router Writing Skills - 编写 Skill
+# Writing Skills - 编写 Skill
 
-为 Smart Router 项目创建、编辑和验证 Superpowers 风格的 Skill。
+创建、编辑和验证 Superpowers 风格的 Skill。
 
 ## 核心原则
 

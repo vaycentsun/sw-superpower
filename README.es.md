@@ -12,7 +12,7 @@ Un conjunto completo de habilidades de flujo de trabajo de ingeniería de softwa
 
 ## 📦 Descripción General
 
-`sw-superpower` es un conjunto de habilidades estilo Superpowers diseñado para [Kimi Code CLI](https://github.com/MoonshotAI/kimi-code). Encapsula prácticas maduras de ingeniería de software (TDD, revisión de código, depuración sistemática) en habilidades de agente estructuradas y reutilizables.
+`sw-superpower` es un conjunto de habilidades estilo Superpowers diseñado para [OpenCode](https://opencode.ai) y otras plataformas de codificación AI. Encapsula prácticas maduras de ingeniería de software (TDD, revisión de código, depuración sistemática) en habilidades de agente estructuradas y reutilizables.
 
 ### Principios Fundamentales
 
@@ -31,11 +31,15 @@ sw-superpower/
 ├── sw-writing-specs/              # Escritura de planes de implementación
 ├── sw-subagent-development/       # Desarrollo impulsado por subagentes
 ├── sw-test-driven-dev/            # Desarrollo dirigido por pruebas
-├── sw-code-review/                # Revisión de código
+├── sw-requesting-code-review/     # Solicitar revisión de código
+├── sw-receiving-code-review/      # Recibir revisión de código
 ├── sw-systematic-debugging/       # Depuración sistemática
+├── sw-dispatching-parallel-agents/# Despacho paralelo de agentes
+├── sw-executing-plans/            # Ejecución de planes
 ├── sw-verification-before-completion/  # Verificación previa a la finalización
 ├── sw-finishing-branch/           # Finalización de rama de desarrollo
 ├── sw-using-git-worktrees/        # Gestión de worktrees de Git
+├── sw-using-superpowers/          # Bootstrap del sistema de habilidades (entrada principal)
 └── sw-writing-skills/             # Escritura de nuevas habilidades (meta-habilidad)
 ```
 
@@ -54,7 +58,8 @@ sw-writing-specs (Escritura del Plan de Implementación)
     ↓ Salida: dev/specs/plans/YYYY-MM-DD--feature-plan.md
 sw-subagent-development (Desarrollo Impulsado por Subagentes)
     ├── sw-test-driven-dev (TDD para cada tarea)
-    └── sw-code-review (Revisión en dos fases)
+    ├── sw-requesting-code-review (Revisión después de tareas)
+    └── sw-receiving-code-review (Manejar feedback de revisión)
     ↓
 sw-verification-before-completion (Verificación Previa a la Finalización)
     ↓
@@ -71,12 +76,16 @@ sw-finishing-branch (Finalización de Rama)
 | **sw-writing-specs** | Crear planes de implementación detallados | Diseño aprobado, se necesita plan de ejecución |
 | **sw-subagent-development** | Ejecutar planes usando subagentes | Tener plan de implementación, las tareas son independientes |
 | **sw-test-driven-dev** | Aplicar ciclo RED-GREEN-REFACTOR | Implementar cualquier función o corregir errores |
-| **sw-code-review** | Revisión de código en dos fases | Después de completar tarea o función |
+| **sw-requesting-code-review** | Despachar subagente revisor de código | Después de tarea, antes de merge |
+| **sw-receiving-code-review** | Manejar feedback de revisión externa | Al recibir comentarios de revisión |
 | **sw-systematic-debugging** | Investigación sistemática de errores | Errores encontrados o pruebas fallando |
+| **sw-dispatching-parallel-agents** | Flujos de trabajo concurrentes de subagentes | 2+ tareas independientes |
+| **sw-executing-plans** | Ejecutar planes en lote en misma sesión | Tener plan, no usar subagentes |
 | **sw-verification-before-completion** | Verificación previa a la finalización | Listo para marcar tarea como completada |
 | **sw-finishing-branch** | Verificar, decidir y limpiar rama | Todas las tareas completadas |
 | **sw-using-git-worktrees** | Crear espacios de trabajo aislados | Iniciar nueva función, necesitar desarrollo paralelo |
 | **sw-writing-skills** | Crear y validar nuevas habilidades | Necesidad de crear una nueva habilidad |
+| **sw-using-superpowers** | Bootstrap del sistema de habilidades | Inicio de cada conversación |
 
 ---
 
@@ -110,7 +119,7 @@ cd <tu-proyecto>/skills/
 git clone https://github.com/your-username/sw-superpower.git
 ```
 
-2. Reinicia Kimi Code CLI o recarga las habilidades.
+2. Reinicia OpenCode o recarga las habilidades.
 
 ### Ejemplo de Uso
 

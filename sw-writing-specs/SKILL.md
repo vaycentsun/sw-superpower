@@ -3,7 +3,7 @@ name: sw-writing-specs
 description: "Use when creating detailed implementation plan for dev/ directory with bite-sized tasks after design is approved"
 ---
 
-# Smart Router Writing Specs - 编写实现计划
+# Writing Specs - 编写实现计划
 
 将批准的设计转化为详细的实现计划，包含可执行的小任务（每个 2-5 分钟）。
 

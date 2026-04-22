@@ -3,7 +3,7 @@ name: sw-verification-before-completion
 description: "Use when marking development task or implementation in dev/ directory as complete to verify it works and meets requirements"
 ---
 
-# Smart Router Verification Before Completion - 完成前验证
+# Verification Before Completion - 完成前验证
 
 在标记任何任务或项目为完成之前，验证它实际工作并符合需求。
 

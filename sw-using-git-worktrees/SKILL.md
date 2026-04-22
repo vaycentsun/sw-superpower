@@ -3,7 +3,7 @@ name: sw-using-git-worktrees
 description: "Use when starting development work on a new feature or branch in dev/ directory to create isolated workspace"
 ---
 
-# Smart Router Using Git Worktrees - Git 工作区管理
+# Using Git Worktrees - Git 工作区管理
 
 使用 Git worktree 创建隔离的工作空间，支持并行开发。
 
@@ -374,9 +374,9 @@ git worktree prune
 **相关 Skill**:
 - sw-finishing-branch - 完成后清理 worktree
 
-## 与 Smart Router 项目集成
+## 项目集成示例
 
-Smart Router 项目推荐使用 worktree：
+推荐使用 worktree 管理功能分支：
 
 ```bash
 # 标准流程

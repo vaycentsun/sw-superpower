@@ -3,7 +3,7 @@ name: sw-finishing-branch
 description: "Use when all development tasks in dev/ directory are complete and ready to merge, PR, keep, or discard the branch"
 ---
 
-# Smart Router Finishing Branch - 完成开发分支
+# Finishing Branch - 完成开发分支
 
 所有任务完成后，验证、决策并清理开发分支。
 

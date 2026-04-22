@@ -3,7 +3,7 @@ name: sw-systematic-debugging
 description: "Use when investigating bugs in dev/ directory, test failures, or unexpected behavior in code to find root cause systematically"
 ---
 
-# Smart Router Systematic Debugging - 系统化调试
+# Systematic Debugging - 系统化调试
 
 使用系统化方法调查 bug、测试失败或意外行为，找到根本原因。
 

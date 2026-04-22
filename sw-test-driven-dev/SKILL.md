@@ -3,7 +3,7 @@ name: sw-test-driven-dev
 description: "Use when implementing any feature or bugfix in dev/ directory, before writing implementation code"
 ---
 
-# Smart Router Test-Driven Development - 测试驱动开发
+# Test-Driven Development - 测试驱动开发
 
 ## 铁律
 
