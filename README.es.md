@@ -93,16 +93,34 @@ sw-finishing-branch (Finalización de Rama)
 
 ### Instalación
 
-**Recomendado:** Agrega este repositorio como un submódulo git al directorio de skills de tu proyecto:
+**Método 1: Plugin de OpenCode (Recomendado)**
+
+Agrega a tu `~/.config/opencode/opencode.json`:
+
+```json
+{
+  "plugin": [
+    "sw-superpower@git+http://192.168.1.100:53000/vaycent/sw-superpower.git#main"
+  ],
+  "permission": {
+    "skill": {
+      "*": "allow"
+    }
+  }
+}
+```
+
+Reinicia OpenCode. El plugin se instalará automáticamente vía Bun.
+
+**Método 2: Git Submodule**
 
 ```bash
-# Agregar como submódulo al directorio de skills del proyecto
 cd <tu-proyecto>/skills/
 git submodule add https://github.com/vaycentsun/sw-superpower.git
 git submodule update --init --recursive
 ```
 
-**Para actualizar el submódulo más tarde:**
+Para actualizar el submódulo más tarde:
 
 ```bash
 cd <tu-proyecto>/skills/sw-superpower
@@ -119,7 +137,7 @@ cd <tu-proyecto>/skills/
 git clone https://github.com/vaycentsun/sw-superpower.git
 ```
 
-2. Reinicia OpenCode o recarga las habilidades.
+Reinicia OpenCode o recarga las habilidades.
 
 ### Ejemplo de Uso
 

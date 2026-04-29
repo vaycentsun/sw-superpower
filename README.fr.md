@@ -93,16 +93,34 @@ sw-finishing-branch (Achèvement de Branche)
 
 ### Installation
 
-**Recommandé :** Ajoutez ce référentiel comme sous-module git au répertoire de skills de votre projet :
+**Méthode 1 : Plugin OpenCode (Recommandé)**
+
+Ajoutez à votre `~/.config/opencode/opencode.json` :
+
+```json
+{
+  "plugin": [
+    "sw-superpower@git+http://192.168.1.100:53000/vaycent/sw-superpower.git#main"
+  ],
+  "permission": {
+    "skill": {
+      "*": "allow"
+    }
+  }
+}
+```
+
+Redémarrez OpenCode. Le plugin sera installé automatiquement via Bun.
+
+**Méthode 2 : Git Submodule**
 
 ```bash
-# Ajouter comme sous-module au répertoire de skills du projet
 cd <votre-projet>/skills/
 git submodule add https://github.com/vaycentsun/sw-superpower.git
 git submodule update --init --recursive
 ```
 
-**Pour mettre à jour le sous-module plus tard :**
+Pour mettre à jour le sous-module plus tard :
 
 ```bash
 cd <votre-projet>/skills/sw-superpower
@@ -119,7 +137,7 @@ cd <votre-projet>/skills/
 git clone https://github.com/vaycentsun/sw-superpower.git
 ```
 
-2. Redémarrez OpenCode ou rechargez les compétences.
+Redémarrez OpenCode ou rechargez les compétences.
 
 ### Exemple d'Utilisation
 

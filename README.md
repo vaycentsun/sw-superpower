@@ -99,17 +99,26 @@ sw-finishing-branch (Finishing Branch)
 
 ### Installation
 
-**OpenCode Installation:** See [docs/install-opencode.md](./docs/install-opencode.md) for detailed installation and usage guide.
+**OpenCode Plugin (Recommended):**
 
-**Quick install for OpenCode:**
+Add to your `~/.config/opencode/opencode.json`:
 
 ```json
 {
-  "plugin": ["sw-superpower@git+https://github.com/vaycentsun/sw-superpower.git"]
+  "plugin": [
+    "sw-superpower@git+http://192.168.1.100:53000/vaycent/sw-superpower.git#main"
+  ],
+  "permission": {
+    "skill": {
+      "*": "allow"
+    }
+  }
 }
 ```
 
-**Or install as git submodule:**
+Restart OpenCode. The plugin will be auto-installed via Bun.
+
+**Git Submodule:**
 
 ```bash
 cd <your-project>/skills/

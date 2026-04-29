@@ -93,16 +93,34 @@ sw-finishing-branch (完成分支)
 
 ### 安装
 
-**推荐方式：** 使用 git submodule 将本仓库添加到使用项目的 skills 目录：
+**方式一：OpenCode 插件（推荐）**
+
+在 `~/.config/opencode/opencode.json` 中添加：
+
+```json
+{
+  "plugin": [
+    "sw-superpower@git+http://192.168.1.100:53000/vaycent/sw-superpower.git#main"
+  ],
+  "permission": {
+    "skill": {
+      "*": "allow"
+    }
+  }
+}
+```
+
+重启 OpenCode，插件会自动通过 Bun 安装。
+
+**方式二：Git Submodule**
 
 ```bash
-# 添加 submodule 到使用项目的 skills 目录
 cd <你的项目>/skills/
 git submodule add https://github.com/vaycentsun/sw-superpower.git
 git submodule update --init --recursive
 ```
 
-**后续更新 submodule：**
+后续更新：
 
 ```bash
 cd <你的项目>/skills/sw-superpower
@@ -112,14 +130,14 @@ git add skills/sw-superpower
 git commit -m "Update sw-superpower submodule"
 ```
 
-或直接克隆（不推荐用于使用版本控制的项目）：
+或直接克隆（不推荐用于版本控制的项目）：
 
 ```bash
 cd <你的项目>/skills/
 git clone https://github.com/vaycentsun/sw-superpower.git
 ```
 
-2. 重启 OpenCode 或重新加载技能。
+重启 OpenCode 或重新加载技能。
 
 ### 使用示例
 
