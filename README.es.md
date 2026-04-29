@@ -98,7 +98,7 @@ sw-finishing-branch (Finalización de Rama)
 ```bash
 # Agregar como submódulo al directorio de skills del proyecto
 cd <tu-proyecto>/skills/
-git submodule add https://github.com/your-username/sw-superpower.git
+git submodule add https://github.com/vaycentsun/sw-superpower.git
 git submodule update --init --recursive
 ```
 
@@ -116,7 +116,7 @@ O clona directamente (no recomendado para proyectos que usan control de versione
 
 ```bash
 cd <tu-proyecto>/skills/
-git clone https://github.com/your-username/sw-superpower.git
+git clone https://github.com/vaycentsun/sw-superpower.git
 ```
 
 2. Reinicia OpenCode o recarga las habilidades.

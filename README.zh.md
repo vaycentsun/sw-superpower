@@ -98,7 +98,7 @@ sw-finishing-branch (完成分支)
 ```bash
 # 添加 submodule 到使用项目的 skills 目录
 cd <你的项目>/skills/
-git submodule add https://github.com/your-username/sw-superpower.git
+git submodule add https://github.com/vaycentsun/sw-superpower.git
 git submodule update --init --recursive
 ```
 
@@ -116,7 +116,7 @@ git commit -m "Update sw-superpower submodule"
 
 ```bash
 cd <你的项目>/skills/
-git clone https://github.com/your-username/sw-superpower.git
+git clone https://github.com/vaycentsun/sw-superpower.git
 ```
 
 2. 重启 OpenCode 或重新加载技能。

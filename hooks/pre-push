@@ -1,0 +1,106 @@
+#!/usr/bin/env bash
+#
+# sw-superpower 的 Git pre-push 钩子
+# ==========================================
+#
+# 这是什么？
+#   这是一个 Git 钩子脚本，在每次执行 `git push` 时自动运行。
+#   它会检查所有 sw-* 技能文件是否符合规范，检查不通过会阻止 push。
+#
+# 检查哪些内容？
+#   1. 每个 sw-*/ 目录都必须有 SKILL.md
+#   2. SKILL.md 不能超过 600 行（超出需拆分）
+#   3. SKILL.md 必须有 YAML frontmatter（--- 开头）
+#   4. SKILL.md 必须有「红旗」章节（禁止行为警示）
+#   5. SKILL.md 必须有常见借口表（防止 Agent 逃避）
+#
+# 如何激活？（首次使用需执行一次）
+#   在项目根目录执行：
+#
+#       ln -s ../../hooks/pre-push .git/hooks/pre-push
+#
+#   这会创建一个软链接，让 Git 在 push 时自动调用此脚本。
+#   使用软链接的好处是：当仓库中的 hooks/pre-push 更新时，
+#   .git/hooks/pre-push 会同步更新。
+#
+# 如何验证激活成功？
+#   执行：ls -la .git/hooks/pre-push
+#   如果看到类似 lrwxr-xr-x 的软链接指向 hooks/pre-push，说明已激活。
+#
+#   也可以直接测试：git push --dry-run
+#   应该会看到 "正在运行 pre-push 验证..." 的输出。
+#
+# 如何停用？
+#   执行：rm .git/hooks/pre-push
+#   这只是删除本地软链接，不会影响仓库中的 hooks/pre-push 文件。
+#
+# 注意：
+#   .git/hooks/ 目录不会被提交到远程仓库，
+#   所以每个贡献者都需要在自己的本地环境中单独激活。
+#
+set -euo pipefail
+
+echo "正在运行 pre-push 验证..."
+
+REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+FAILED=0
+
+# 测试 1：所有 sw-* 技能目录都必须有 SKILL.md
+for dir in "$REPO_ROOT"/sw-*/; do
+    if [ -d "$dir" ]; then
+        if [ ! -f "$dir/SKILL.md" ]; then
+            echo "  [失败] $(basename "$dir") 缺少 SKILL.md"
+            FAILED=1
+        fi
+    fi
+done
+
+# 测试 2：SKILL.md 不能超过 600 行
+for skill_file in "$REPO_ROOT"/sw-*/SKILL.md; do
+    if [ -f "$skill_file" ]; then
+        line_count=$(wc -l < "$skill_file")
+        if [ "$line_count" -gt 500 ]; then
+            echo "  [失败] $(basename "$(dirname "$skill_file")")/SKILL.md 共 $line_count 行（上限 600）"
+            FAILED=1
+        fi
+    fi
+done
+
+# 测试 3：所有 SKILL.md 必须有 YAML frontmatter
+for skill_file in "$REPO_ROOT"/sw-*/SKILL.md; do
+    if [ -f "$skill_file" ]; then
+        if ! head -1 "$skill_file" | grep -q '^---'; then
+            echo "  [失败] $(basename "$(dirname "$skill_file")")/SKILL.md 缺少 YAML frontmatter"
+            FAILED=1
+        fi
+    fi
+done
+
+# 测试 4：所有 SKILL.md 必须有「红旗」章节
+for skill_file in "$REPO_ROOT"/sw-*/SKILL.md; do
+    if [ -f "$skill_file" ]; then
+        if ! grep -q '## 红旗' "$skill_file"; then
+            echo "  [失败] $(basename "$(dirname "$skill_file")")/SKILL.md 缺少红旗章节"
+            FAILED=1
+        fi
+    fi
+done
+
+# 测试 5：所有 SKILL.md 必须有常见借口表
+for skill_file in "$REPO_ROOT"/sw-*/SKILL.md; do
+    if [ -f "$skill_file" ]; then
+        if ! grep -q '常见借口\|合理化借口' "$skill_file"; then
+            echo "  [失败] $(basename "$(dirname "$skill_file")")/SKILL.md 缺少常见借口表"
+            FAILED=1
+        fi
+    fi
+done
+
+if [ "$FAILED" -eq 0 ]; then
+    echo "  [通过] 所有 pre-push 验证通过"
+    exit 0
+else
+    echo ""
+    echo "pre-push 验证失败！请先修复上述问题再 push。"
+    exit 1
+fi
