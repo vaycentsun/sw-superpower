@@ -4,7 +4,7 @@
 
 - 已安装 [OpenCode.ai](https://opencode.ai)
 
-## 安装
+## 安装方式
 
 在 `opencode.json`（全局或项目级）的 `plugin` 数组中添加：
 
@@ -23,9 +23,14 @@
 如果你之前使用 `git clone` 和符号链接的方式安装过 sw-superpower，请先清理旧配置：
 
 ```bash
+# 删除该插件的旧缓存
+rm -rf ~/.cache/opencode/packages/sw-superpower@git+http
+
+
 # 移除旧符号链接
 rm -f ~/.config/opencode/plugins/sw-superpowers.js
 rm -rf ~/.config/opencode/skills/sw-superpowers
+
 
 # 可选：移除克隆的仓库
 rm -rf ~/.config/opencode/superpowers
