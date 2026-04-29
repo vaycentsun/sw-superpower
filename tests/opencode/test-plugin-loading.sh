@@ -9,15 +9,15 @@ FAILED=0
 echo "Testing plugin loading..."
 
 # Test 1: Plugin file exists
-if [ -f "$REPO_ROOT/.opencode/plugins/superpowers.js" ]; then
+if [ -f "$REPO_ROOT/.opencode/plugins/sw-superpowers.js" ]; then
     echo "  [PASS] Plugin file exists"
 else
-    echo "  [FAIL] Plugin file not found: .opencode/plugins/superpowers.js"
+    echo "  [FAIL] Plugin file not found: .opencode/plugins/sw-superpowers.js"
     FAILED=1
 fi
 
 # Test 2: Plugin file is readable
-if [ -r "$REPO_ROOT/.opencode/plugins/superpowers.js" ]; then
+if [ -r "$REPO_ROOT/.opencode/plugins/sw-superpowers.js" ]; then
     echo "  [PASS] Plugin file is readable"
 else
     echo "  [FAIL] Plugin file is not readable"
@@ -25,7 +25,7 @@ else
 fi
 
 # Test 3: Plugin file has non-zero size
-if [ -s "$REPO_ROOT/.opencode/plugins/superpowers.js" ]; then
+if [ -s "$REPO_ROOT/.opencode/plugins/sw-superpowers.js" ]; then
     echo "  [PASS] Plugin file has content"
 else
     echo "  [FAIL] Plugin file is empty"
@@ -64,7 +64,7 @@ if [ "$MISSING_SKILL_MD" -eq 0 ] && [ "$SKILL_COUNT" -gt 0 ]; then
 fi
 
 # Test 6: Plugin references correct skills path
-if grep -q "sw-" "$REPO_ROOT/.opencode/plugins/superpowers.js"; then
+if grep -q "sw-" "$REPO_ROOT/.opencode/plugins/sw-superpowers.js"; then
     echo "  [PASS] Plugin references sw-* skill directories"
 else
     echo "  [WARN] Plugin may not reference sw-* directories"

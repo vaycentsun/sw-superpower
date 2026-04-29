@@ -47,7 +47,7 @@ bash run-tests.sh -v
 ### 1. 插件加载测试 (`test-plugin-loading.sh`)
 
 验证：
-- `.opencode/plugins/superpowers.js` 插件文件存在
+- `.opencode/plugins/sw-superpowers.js` 插件文件存在
 - 插件能正确扫描 skills 目录
 - 所有 Skill 目录结构符合规范
 

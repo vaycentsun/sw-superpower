@@ -46,7 +46,7 @@ const normalizePath = (p, homeDir) => {
   return path.resolve(normalized);
 };
 
-export const SuperpowersPlugin = async ({ client, directory }) => {
+export const SwSuperpowersPlugin = async ({ client, directory }) => {
   const homeDir = os.homedir();
   // 注意：本地项目使用 sw- 前缀的目录而不是 skills/ 子目录
   const superpowersSkillsDir = path.resolve(__dirname, '../..');
