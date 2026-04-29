@@ -1,110 +1,110 @@
-# sw-superpower — Agent Context
+# sw-superpower — Agent 上下文
 
-> **What this repo is:** A Superpowers-style skill framework for OpenCode. The "source code" is SKILL.md markdown files in `sw-*/` directories, not a traditional code project. This is a Chinese-localized fork of [obra/superpowers](https://github.com/obra/superpowers).
+> **这是什么仓库：** 一个为 OpenCode 设计的 Superpowers 风格技能框架。"源代码"是 `sw-*/` 目录下的 SKILL.md 文件，不是一个传统的代码项目。这是 [obra/superpowers](https://github.com/obra/superpowers) 的中文本地化分支。
 
-## What You Must Know Before Editing
+## 编辑前必须知道的事
 
-### This Is a Skill Framework, Not an App
-- The "source" is SKILL.md files in `sw-*/` directories. There is no `npm test`, no build step, and no traditional app entrypoint.
-- `package.json` exists solely so OpenCode can install the plugin via `git+` URL. Do not add dependencies or scripts to it.
-- The plugin at `.opencode/plugins/sw-superpowers.js` injects skills into sessions via two hooks:
-  - `config` — registers the repo root in `config.skills.paths` so OpenCode discovers `sw-*/SKILL.md` files.
-  - `experimental.chat.messages.transform` — prepends `sw-using-superpowers/SKILL.md` content (plus tool mappings) into the first user message of each session.
+### 这是一个技能框架，不是应用
+- "源码"是 `sw-*/` 目录下的 SKILL.md 文件。没有 `npm test`，没有构建步骤，也没有传统的应用入口。
+- `package.json` 的存在只是为了 OpenCode 能通过 `git+` URL 安装插件。**不要**往里面添加依赖或脚本。
+- `.opencode/plugins/sw-superpowers.js` 插件通过两个钩子将技能注入会话：
+  - `config` — 将仓库根目录注册到 `config.skills.paths`，让 OpenCode 发现 `sw-*/SKILL.md` 文件。
+  - `experimental.chat.messages.transform` — 在每个会话的第一条用户消息前，插入 `sw-using-superpowers/SKILL.md` 内容（加上工具映射）。
 
-### File Path Conventions
-- **Spec files**: `dev/specs/YYYY-MM-DD--<feature-name>-design.md`
-- **Plan files**: `dev/specs/plans/YYYY-MM-DD--<feature-name>-plan.md`
-- **Skill directories**: `sw-<skill-name>/`
-- **Subagent prompts**: `subagent-prompts/<name>-prompt.md`
+### 文件路径约定
+- **Spec 文件**: `dev/specs/YYYY-MM-DD--<feature-name>-design.md`
+- **计划文件**: `dev/specs/plans/YYYY-MM-DD--<feature-name>-plan.md`
+- **Skill 目录**: `sw-<skill-name>/`
+- **子 Agent 提示词**: `subagent-prompts/<name>-prompt.md`
 
-### Instruction Priority (Framework Design)
-Superpowers skills override default system prompts, but **user instructions always win**:
-1. User explicit instructions (CLAUDE.md, GEMINI.md, AGENTS.md, direct request) — highest
-2. Superpowers skills — overrides default behavior
-3. Default system prompts — lowest
+### 指令优先级（框架设计）
+Superpowers 技能覆盖默认系统提示，但**用户指令始终优先**：
+1. 用户的明确指令（CLAUDE.md、GEMINI.md、AGENTS.md、直接请求）—— 最高优先级
+2. Superpowers 技能 —— 与默认行为冲突时覆盖
+3. 默认系统提示 —— 最低优先级
 
-If you edit skills that contain hard rules (e.g. "always use TDD"), do not weaken them. The framework is designed to be rigid on workflow discipline.
+如果你编辑包含硬规则的技能（如"始终使用 TDD"），**不要**弱化它们。这个框架的设计就是对工作流纪律保持严格。
 
-### Pre-Push Hook — Activate It
+### Pre-Push 钩子 — 激活它
 ```bash
 ln -s ../../hooks/pre-push .git/hooks/pre-push
 ```
-The hook enforces SKILL.md constraints. **Known bug:** the code checks `> 500` lines but the message says "上限 600". If you edit the hook, fix this discrepancy.
+钩子会强制执行 SKILL.md 约束。**已知 bug：** 代码里检查的是 `> 500` 行，但消息说"上限 600"。如果你编辑钩子，修复这个不一致。
 
-### How to Verify Changes
+### 如何验证变更
 ```bash
-# Run the bash test suite (not npm test)
+# 运行 bash 测试套件（不是 npm test）
 bash tests/opencode/run-tests.sh
 
-# Run a single test
+# 运行单个测试
 bash tests/opencode/run-tests.sh -t test-skill-structure.sh
 ```
 
-### Skill File Constraints (Enforced by Hook + Tests)
-| Constraint | Detail |
-|------------|--------|
-| **Frontmatter** | Must start with `---` and contain `name:` + `description:` |
-| **Line limit** | ~500–600 lines. Split into separate `.md` files if a skill grows larger (see `sw-writing-skills/` as the model: `SKILL.md` + `cso-guide.md` + `skill-creation-workflow.md`). |
-| **Red Flags** | Must include a `## 红旗` or `## Red Flags` section |
-| **Common Excuses** | Must include a table of common excuses (e.g. `| 想法 | 现实 |`) |
-| **Naming** | Directory must match `sw-<skill-name>/` and the frontmatter `name:` field |
+### 技能文件约束（钩子 + 测试双重验证）
+| 约束 | 详情 |
+|------|------|
+| **Frontmatter** | 必须以 `---` 开头，包含 `name:` 和 `description:` |
+| **行数限制** | ~500–600 行。超出的技能拆分成多个 `.md` 文件（参考 `sw-writing-skills/` 结构：SKILL.md + cso-guide.md + skill-creation-workflow.md） |
+| **红旗** | 必须包含 `## 红旗` 或 `## Red Flags` 章节 |
+| **常见借口表** | 必须包含常见借口表格（如 `| 想法 | 现实 |`） |
+| **命名** | 目录名必须匹配 `sw-<skill-name>/`，且与 frontmatter 中的 `name:` 字段一致 |
 
-### Skill Frontmatter Format
+### 技能 Frontmatter 格式
 ```markdown
 ---
 name: sw-example
 description: "Use when [specific trigger condition]"
 ---
 ```
-**Important:** The plugin's frontmatter parser is a simple colon-based parser (see `.opencode/plugins/sw-superpowers.js`). Do not use complex YAML features like multi-line strings or nested objects.
+**重要：** 插件的 frontmatter 解析器是一个简单的基于冒号的解析器（见 `.opencode/plugins/sw-superpowers.js`）。**不要**使用复杂 YAML 特性，如多行字符串或嵌套对象。
 
-## Architecture
+## 架构
 
 ```
 sw-superpower/
-├── sw-*/                  # 14 skill directories, each with SKILL.md (+ optional subagent-prompts/, templates/, scripts/)
-├── .opencode/plugins/      # OpenCode plugin: sw-superpowers.js (auto-registers skills + injects bootstrap)
-├── tests/opencode/         # Bash test suite (3 tests: plugin-loading, skill-structure, tool-mapping)
-├── hooks/                  # Git hooks (pre-push validation)
-├── docs/                   # Human-facing docs
-└── package.json            # Required for OpenCode plugin installation via git URL
+├── sw-*/                  # 14 个技能目录，每个含 SKILL.md（+ 可选的 subagent-prompts/、templates/、scripts/）
+├── .opencode/plugins/      # OpenCode 插件：sw-superpowers.js（自动注册技能 + 注入引导内容）
+├── tests/opencode/         # Bash 测试套件（3 个测试：插件加载、技能结构、工具映射）
+├── hooks/                  # Git 钩子（pre-push 验证）
+├── docs/                   # 面向人类的文档
+└── package.json            # 供 OpenCode 通过 git URL 安装插件所需
 ```
 
-## How the Plugin Works
-1. **Config hook:** Adds the repo root to `config.skills.paths`, so OpenCode discovers `sw-*/SKILL.md` files.
-2. **Transform hook:** On the first user message of each session, prepends the content of `sw-using-superpowers/SKILL.md` (plus OpenCode tool mappings) as a user message part.
-3. **Effect:** Agent sees "You have superpowers" context automatically, without manually loading skills.
+## 插件工作原理
+1. **Config 钩子**：将仓库根目录加入 `config.skills.paths`，让 OpenCode 发现 `sw-*/SKILL.md` 文件。
+2. **Transform 钩子**：在每个会话的第一条用户消息中，前置插入 `sw-using-superpowers/SKILL.md` 内容（加上 OpenCode 工具映射）作为用户消息的一部分。
+3. **效果**：Agent 自动看到 "You have superpowers" 上下文，无需手动加载技能。
 
-## Installation Methods
+## 安装方式
 
-**Plugin (global, recommended):**
-Add to `~/.config/opencode/opencode.json`:
+**插件方式（全局，推荐）**
+添加到 `~/.config/opencode/opencode.json`：
 ```json
 {
   "plugin": ["sw-superpower@git+http://192.168.1.100:53000/vaycent/sw-superpower.git#main"],
   "permission": { "skill": { "*": "allow" } }
 }
 ```
-Restart OpenCode. The plugin installs automatically via Bun.
+重启 OpenCode。插件会通过 Bun 自动安装。
 
-**Git submodule (project-local):**
+**Git submodule（项目级）**
 ```bash
-cd <project>/skills/
+cd <项目>/skills/
 git submodule add https://github.com/vaycentsun/sw-superpower.git
 ```
 
-## When Adding or Editing a Skill
-1. Create directory `sw-<name>/` with `SKILL.md`.
-2. Include frontmatter, Red Flags, and Common Excuses table.
-3. Run `bash tests/opencode/run-tests.sh` before committing.
-4. Ensure `git push` passes the pre-push hook.
-5. If a skill exceeds the line limit, split it into multiple `.md` files within the same `sw-*/` directory (reference `sw-writing-skills/` structure).
+## 添加或编辑技能时
+1. 创建 `sw-<name>/` 目录，放入 `SKILL.md`。
+2. 包含 frontmatter、红旗章节、常见借口表。
+3. 提交前运行 `bash tests/opencode/run-tests.sh`。
+4. 确保 `git push` 通过 pre-push 钩子。
+5. 如果技能超出行数限制，在同一个 `sw-*/` 目录内拆成多个 `.md` 文件（参考 `sw-writing-skills/` 的结构）。
 
-## Files to Ignore
-- `.opencode/node_modules/`, `.opencode/package*.json` — plugin dev dependencies, not project source.
-- `tests/opencode/*.sh` output — tests are self-contained and stateless.
+## 忽略的文件
+- `.opencode/node_modules/`、`.opencode/package*.json` —— 插件开发依赖，不是项目源码。
+- `tests/opencode/*.sh` 的输出 —— 测试是自包含且无状态的。
 
-## Related Docs
-- `docs/install-opencode.md` — Human-facing OpenCode installation guide
-- `sw-writing-skills/SKILL.md` — Meta-skill for creating new skills
-- `tests/README.md` — Test suite documentation
+## 相关文档
+- `docs/install-opencode.md` —— 面向人类的 OpenCode 安装指南
+- `sw-writing-skills/SKILL.md` —— 编写新技能的元技能
+- `tests/README.md` —— 测试套件文档
