@@ -1,6 +1,8 @@
 {
   "name": "sw-superpower",
   "version": "1.0.0",
+  "type": "module",
+  "author": "Vaycent <vaycentsun@gmail.com>",
   "description": "Superpowers-style skill set for OpenCode and AI coding agents (Chinese-localized)",
   "main": ".opencode/plugins/sw-superpowers.js",
   "repository": {
@@ -20,8 +22,6 @@
     "sw-*/",
     ".opencode/",
     "docs/",
-    "hooks/",
-    "tests/",
     "subagent-prompts/"
   ],
   "engines": {
