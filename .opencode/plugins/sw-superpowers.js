@@ -1,7 +1,7 @@
 /**
  * OpenCode.ai 的 Superpowers 插件
  *
- * 通过系统提示转换注入 superpowers 引导上下文。
+ * 通过系统提示转换注入 sw-superpowers 引导上下文。
  * 通过配置钩子自动注册技能目录（无需 symlink）。
  */
 
@@ -49,14 +49,14 @@ const normalizePath = (p, homeDir) => {
 export const SwSuperpowersPlugin = async ({ client, directory }) => {
   const homeDir = os.homedir();
   // 注意：本地项目使用 sw- 前缀的目录而不是 skills/ 子目录
-  const superpowersSkillsDir = path.resolve(__dirname, '../..');
+  const swSuperpowersSkillsDir = path.resolve(__dirname, '../..');
   const envConfigDir = normalizePath(process.env.OPENCODE_CONFIG_DIR, homeDir);
   const configDir = envConfigDir || path.join(homeDir, '.config/opencode');
 
   // 辅助函数：生成引导内容
   const getBootstrapContent = () => {
     // 尝试加载 using-superpowers 技能
-    const skillPath = path.join(superpowersSkillsDir, 'sw-using-superpowers', 'SKILL.md');
+    const skillPath = path.join(swSuperpowersSkillsDir, 'sw-using-superpowers', 'SKILL.md');
     if (!fs.existsSync(skillPath)) return null;
 
     const fullContent = fs.readFileSync(skillPath, 'utf8');
@@ -83,13 +83,13 @@ ${toolMapping}
   };
 
   return {
-    // 将技能路径注入实时配置，使 OpenCode 无需手动 symlink 或配置文件编辑即可发现 superpowers 技能。
+    // 将技能路径注入实时配置，使 OpenCode 无需手动 symlink 或配置文件编辑即可发现 sw-superpowers 技能。
     // 这有效是因为 Config.get() 返回缓存的单例——此处的修改在技能稍后延迟发现时可见。
     config: async (config) => {
       config.skills = config.skills || {};
       config.skills.paths = config.skills.paths || [];
-      if (!config.skills.paths.includes(superpowersSkillsDir)) {
-        config.skills.paths.push(superpowersSkillsDir);
+      if (!config.skills.paths.includes(swSuperpowersSkillsDir)) {
+        config.skills.paths.push(swSuperpowersSkillsDir);
       }
     },
 
