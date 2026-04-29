@@ -99,13 +99,13 @@ sw-finishing-branch (Finishing Branch)
 
 ### Installation
 
-**Platform-specific guides:** See [INSTALL.md](./INSTALL.md) for detailed instructions for OpenCode, Claude Code, Cursor, Gemini CLI, Copilot CLI, and Codex.
+**OpenCode Installation:** See [docs/install-opencode.md](./docs/install-opencode.md) for detailed installation and usage guide.
 
 **Quick install for OpenCode:**
 
 ```json
 {
-  "plugin": ["sw-superpower@git+https://github.com/your-username/sw-superpower.git"]
+  "plugin": ["sw-superpower@git+https://github.com/vaycentsun/sw-superpower.git"]
 }
 ```
 
@@ -113,7 +113,7 @@ sw-finishing-branch (Finishing Branch)
 
 ```bash
 cd <your-project>/skills/
-git submodule add https://github.com/your-username/sw-superpower.git
+git submodule add https://github.com/vaycentsun/sw-superpower.git
 git submodule update --init --recursive
 ```
 

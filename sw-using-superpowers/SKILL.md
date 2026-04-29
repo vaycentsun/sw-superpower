@@ -40,10 +40,20 @@ Superpowers 技能覆盖默认系统提示行为，但**用户指令始终优先
 技能使用 Claude Code 工具名称。非 CC 平台：参见 `references/copilot-tools.md`（Copilot CLI）、`references/codex-tools.md`（Codex）以了解工具等效项。Gemini CLI 用户通过 GEMINI.md 自动获得工具映射。
 
 **OpenCode 用户：** 当技能引用你没有的工具时，替换为 OpenCode 等效项：
-- `TodoWrite` → `todowrite`
-- `Task` 工具配子 Agent → 使用 OpenCode 的子 Agent 系统
-- `Skill` 工具 → OpenCode 原生 `skill` 工具
-- `Read`、`Write`、`Edit`、`Bash` → 你的原生工具
+
+| Claude Code 工具 | OpenCode 等效项 |
+|-----------------|----------------|
+| `TodoWrite` | `todowrite` |
+| `Task` 工具配子 Agent | 使用 OpenCode 的子 Agent 系统 |
+| `Skill` 工具 | OpenCode 原生 `skill` 工具 |
+| `Read` | `read` |
+| `Write` | `write` |
+| `Edit` | `edit` |
+| `Bash` | `bash` |
+| `Grep` | `grep` |
+| `Glob` | `glob` |
+| `WebFetch` | `webfetch` |
+| `WebSearch` | （如需要，使用 `webfetch` 访问搜索引擎） |
 
 # 使用技能
 
@@ -99,6 +109,16 @@ digraph skill_flow {
 | "我先做这一件事" | 在做任何事之前先检查。 |
 | "这感觉很 productive" | 无纪律的行动浪费时间。技能防止这个。 |
 | "我知道那是什么意思" | 知道概念 ≠ 使用技能。调用它。 |
+
+## 常见借口表
+
+| 借口 | 现实 |
+|------|------|
+| "这个任务太简单，不需要技能" | 简单任务也会变复杂。技能防止已知错误 |
+| "我已经知道怎么处理" | 技能会演进。读取当前版本，不凭记忆 |
+| "先做完这一件事再检查技能" | 在做任何事之前先检查。事后检查 = 已犯错 |
+| "技能检查浪费时间" | 10 秒检查可能节省数小时返工 |
+| "这个场景太特殊，没有对应技能" | 即使 1% 概率适用也要检查。你可能错了 |
 
 ## 技能优先级
 

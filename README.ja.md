@@ -98,7 +98,7 @@ sw-finishing-branch (ブランチ完了)
 ```bash
 # 使用プロジェクトの skills ディレクトリにサブモジュールとして追加
 cd <あなたのプロジェクト>/skills/
-git submodule add https://github.com/your-username/sw-superpower.git
+git submodule add https://github.com/vaycentsun/sw-superpower.git
 git submodule update --init --recursive
 ```
 
@@ -116,7 +116,7 @@ git commit -m "Update sw-superpower submodule"
 
 ```bash
 cd <あなたのプロジェクト>/skills/
-git clone https://github.com/your-username/sw-superpower.git
+git clone https://github.com/vaycentsun/sw-superpower.git
 ```
 
 2. OpenCode を再起動するか、スキルをリロードします。

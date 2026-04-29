@@ -98,7 +98,7 @@ sw-finishing-branch (Achèvement de Branche)
 ```bash
 # Ajouter comme sous-module au répertoire de skills du projet
 cd <votre-projet>/skills/
-git submodule add https://github.com/your-username/sw-superpower.git
+git submodule add https://github.com/vaycentsun/sw-superpower.git
 git submodule update --init --recursive
 ```
 
@@ -116,7 +116,7 @@ Ou clonez directement (non recommandé pour les projets utilisant le contrôle d
 
 ```bash
 cd <votre-projet>/skills/
-git clone https://github.com/your-username/sw-superpower.git
+git clone https://github.com/vaycentsun/sw-superpower.git
 ```
 
 2. Redémarrez OpenCode ou rechargez les compétences.
