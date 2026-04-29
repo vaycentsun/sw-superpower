@@ -2,29 +2,5 @@
   "name": "sw-superpower",
   "version": "1.0.0",
   "type": "module",
-  "author": "Vaycent <vaycentsun@gmail.com>",
-  "description": "Superpowers-style skill set for OpenCode and AI coding agents (Chinese-localized)",
-  "main": ".opencode/plugins/sw-superpowers.js",
-  "repository": {
-    "type": "git",
-    "url": "http://192.168.1.100:53000/vaycent/sw-superpower.git"
-  },
-  "keywords": [
-    "opencode",
-    "superpowers",
-    "skills",
-    "agent",
-    "tdd",
-    "code-review"
-  ],
-  "license": "MIT",
-  "files": [
-    "sw-*/",
-    ".opencode/",
-    "docs/",
-    "subagent-prompts/"
-  ],
-  "engines": {
-    "opencode": ">=1.0.0"
-  }
+  "main": ".opencode/plugins/sw-superpowers.js"
 }
