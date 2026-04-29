@@ -48,6 +48,28 @@ Superpowers 技能覆盖默认系统提示行为，但**用户指令始终优先
 6. **互惠** - 谨慎使用
 7. **喜好** - 避免用于纪律执行
 
+## OpenCode 插件安装
+
+本项目支持通过 OpenCode 插件机制全局安装：
+
+1. 在 `~/.config/opencode/opencode.json` 的 `plugin` 数组中添加：
+   ```json
+   "plugin": [
+     "sw-superpower@git+http://192.168.1.100:53000/vaycent/sw-superpower.git#main"
+   ]
+   ```
+2. 添加权限配置以允许 Agent 访问技能：
+   ```json
+   "permission": {
+     "skill": {
+       "*": "allow"
+     }
+   }
+   ```
+3. 重启 OpenCode。
+
+> 完整安装指南见 [docs/install-opencode.md](docs/install-opencode.md)。
+
 ## 相关资源
 
 - **项目介绍**: [README.md](README.md)

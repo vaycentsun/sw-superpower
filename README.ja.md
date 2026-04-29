@@ -93,16 +93,34 @@ sw-finishing-branch (ブランチ完了)
 
 ### インストール
 
-**推奨：** このリポジトリを使用プロジェクトの skills ディレクトリに git サブモジュールとして追加します：
+**方法 1: OpenCode プラグイン（推奨）**
+
+`~/.config/opencode/opencode.json` に追加：
+
+```json
+{
+  "plugin": [
+    "sw-superpower@git+http://192.168.1.100:53000/vaycent/sw-superpower.git#main"
+  ],
+  "permission": {
+    "skill": {
+      "*": "allow"
+    }
+  }
+}
+```
+
+OpenCode を再起動すると、プラグインが Bun 経由で自動インストールされます。
+
+**方法 2: Git サブモジュール**
 
 ```bash
-# 使用プロジェクトの skills ディレクトリにサブモジュールとして追加
 cd <あなたのプロジェクト>/skills/
 git submodule add https://github.com/vaycentsun/sw-superpower.git
 git submodule update --init --recursive
 ```
 
-**後でサブモジュールを更新する場合：**
+後でサブモジュールを更新する場合：
 
 ```bash
 cd <あなたのプロジェクト>/skills/sw-superpower
@@ -119,7 +137,7 @@ cd <あなたのプロジェクト>/skills/
 git clone https://github.com/vaycentsun/sw-superpower.git
 ```
 
-2. OpenCode を再起動するか、スキルをリロードします。
+OpenCode を再起動するか、スキルをリロードします。
 
 ### 使用例
 
