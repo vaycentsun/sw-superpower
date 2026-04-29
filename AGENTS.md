@@ -1,6 +1,6 @@
 # sw-superpower — Agent 上下文
 
-> **这是什么仓库：** 一个为 OpenCode 设计的 Superpowers 风格技能框架。"源代码"是 `sw-*/` 目录下的 SKILL.md 文件，不是一个传统的代码项目。这是 [obra/superpowers](https://github.com/obra/superpowers) 的中文本地化分支。
+> **这是什么仓库：** 一个为 AI Coding Agent（如OpenCode） 设计的软件研发技能框架。"源代码"是 `sw-*/` 目录下的 SKILL.md 文件，不是一个传统的代码项目。
 
 ## 编辑前必须知道的事
 
@@ -12,15 +12,15 @@
   - `experimental.chat.messages.transform` — 在每个会话的第一条用户消息前，插入 `sw-using-superpowers/SKILL.md` 内容（加上工具映射）。
 
 ### 文件路径约定
-- **Spec 文件**: `dev/specs/YYYY-MM-DD--<feature-name>-design.md`
-- **计划文件**: `dev/specs/plans/YYYY-MM-DD--<feature-name>-plan.md`
+- **Spec 文件**: `docs/specs/YYYY-MM-DD--<feature-name>-design.md`
+- **计划文件**: `docs/plans/YYYY-MM-DD--<feature-name>-plan.md`
 - **Skill 目录**: `sw-<skill-name>/`
 - **子 Agent 提示词**: `subagent-prompts/<name>-prompt.md`
 
 ### 指令优先级（框架设计）
-Superpowers 技能覆盖默认系统提示，但**用户指令始终优先**：
-1. 用户的明确指令（CLAUDE.md、GEMINI.md、AGENTS.md、直接请求）—— 最高优先级
-2. Superpowers 技能 —— 与默认行为冲突时覆盖
+本项目的技能覆盖默认系统提示，但**用户指令始终优先**：
+1. 用户的明确指令（OPENCODE.md、CLAUDE.md、GEMINI.md、AGENTS.md、直接请求）—— 最高优先级
+2. sw-superpowers 技能 —— 与默认行为冲突时覆盖
 3. 默认系统提示 —— 最低优先级
 
 如果你编辑包含硬规则的技能（如"始终使用 TDD"），**不要**弱化它们。这个框架的设计就是对工作流纪律保持严格。
@@ -29,7 +29,7 @@ Superpowers 技能覆盖默认系统提示，但**用户指令始终优先**：
 ```bash
 ln -s ../../hooks/pre-push .git/hooks/pre-push
 ```
-钩子会强制执行 SKILL.md 约束。**已知 bug：** 代码里检查的是 `> 500` 行，但消息说"上限 600"。如果你编辑钩子，修复这个不一致。
+钩子会强制执行 SKILL.md 约束。**已知 bug：** 代码里检查的是 `> 600` 行。
 
 ### 如何验证变更
 ```bash
@@ -90,7 +90,7 @@ sw-superpower/
 **Git submodule（项目级）**
 ```bash
 cd <项目>/skills/
-git submodule add https://github.com/vaycentsun/sw-superpower.git
+git submodule add http://192.168.1.100:53000/vaycent/sw-superpower.git
 ```
 
 ## 添加或编辑技能时
