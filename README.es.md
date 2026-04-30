@@ -38,7 +38,6 @@ sw-superpower/
 ├── sw-executing-plans/            # Ejecución de planes
 ├── sw-verification-before-completion/  # Verificación previa a la finalización
 ├── sw-finishing-branch/           # Finalización de rama de desarrollo
-├── sw-using-git-worktrees/        # Gestión de worktrees de Git
 ├── sw-using-superpowers/          # Bootstrap del sistema de habilidades (entrada principal)
 └── sw-writing-skills/             # Escritura de nuevas habilidades (meta-habilidad)
 ```
@@ -53,9 +52,9 @@ El flujo de trabajo completo de desarrollo de software se ejecuta en el siguient
 Iniciar Nueva Función
     ↓
 sw-brainstorming (Lluvia de Ideas y Diseño)
-    ↓ Salida: dev/specs/YYYY-MM-DD--feature.md
+    ↓ Salida: docs/sw-superpower/specs/YYYY-MM-DD--feature.md
 sw-writing-specs (Escritura del Plan de Implementación)
-    ↓ Salida: dev/specs/plans/YYYY-MM-DD--feature-plan.md
+    ↓ Salida: docs/sw-superpower/plans/YYYY-MM-DD--feature-plan.md
 sw-subagent-development (Desarrollo Impulsado por Subagentes)
     ├── sw-test-driven-dev (TDD para cada tarea)
     ├── sw-requesting-code-review (Revisión después de tareas)
@@ -83,7 +82,6 @@ sw-finishing-branch (Finalización de Rama)
 | **sw-executing-plans** | Ejecutar planes en lote en misma sesión | Tener plan, no usar subagentes |
 | **sw-verification-before-completion** | Verificación previa a la finalización | Listo para marcar tarea como completada |
 | **sw-finishing-branch** | Verificar, decidir y limpiar rama | Todas las tareas completadas |
-| **sw-using-git-worktrees** | Crear espacios de trabajo aislados | Iniciar nueva función, necesitar desarrollo paralelo |
 | **sw-writing-skills** | Crear y validar nuevas habilidades | Necesidad de crear una nueva habilidad |
 | **sw-using-superpowers** | Bootstrap del sistema de habilidades | Inicio de cada conversación |
 
@@ -151,7 +149,7 @@ Agente: [Aplica automáticamente la Habilidad sw-brainstorming]
       2. Hacer preguntas de aclaración...
       3. Proponer 2-3 enfoques...
       4. Presentar diseño en secciones...
-      5. Escribir documento de especificación → dev/specs/2026-04-18--user-auth.md
+      5. Escribir documento de especificación → docs/sw-superpower/specs/2026-04-18--user-auth.md
       6. Invocar sw-writing-specs para crear plan de implementación...
 ```
 
@@ -166,8 +164,7 @@ sw-<skill-name>/
 ├── SKILL.md                    # Archivo principal de habilidad (requerido)
 ├── subagent-prompts/           # Prompts de subagentes (opcional)
 │   └── <name>-prompt.md
-└── templates/                  # Archivos de plantilla (opcional)
-    └── <template>.md
+
 ```
 
 ### Formato SKILL.md

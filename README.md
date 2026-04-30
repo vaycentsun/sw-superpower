@@ -38,7 +38,6 @@ sw-superpower/
 ├── sw-systematic-debugging/       # Systematic debugging
 ├── sw-verification-before-completion/  # Pre-completion verification
 ├── sw-finishing-branch/           # Finishing development branch
-├── sw-using-git-worktrees/        # Git worktree management
 ├── sw-dispatching-parallel-agents/# Parallel agent dispatch
 ├── sw-executing-plans/            # Executing plans (same session)
 ├── sw-using-superpowers/          # Skill system bootstrap (core entry)
@@ -55,9 +54,9 @@ The complete software development workflow executes in the following order:
 Start New Feature
     ↓
 sw-brainstorming (Brainstorming & Design)
-    ↓ Output: docs/superpowers/specs/YYYY-MM-DD--feature-design.md
+    ↓ Output: docs/sw-superpower/specs/YYYY-MM-DD--feature-design.md
 sw-writing-specs (Writing Implementation Plan)
-    ↓ Output: docs/superpowers/plans/YYYY-MM-DD--feature-plan.md
+    ↓ Output: docs/sw-superpower/plans/YYYY-MM-DD--feature-plan.md
 sw-subagent-development (Subagent-Driven Development)
     ├── sw-test-driven-dev (TDD for each task)
     ├── sw-requesting-code-review (Review after tasks)
@@ -89,7 +88,6 @@ sw-finishing-branch (Finishing Branch)
 | **sw-dispatching-parallel-agents** | Concurrent subagent workflows | 2+ independent tasks |
 | **sw-verification-before-completion** | Pre-completion verification | Ready to mark task as complete |
 | **sw-finishing-branch** | Verify, decide, and clean up branch | All tasks completed |
-| **sw-using-git-worktrees** | Create isolated workspaces | Starting new feature, need parallel development |
 | **sw-writing-skills** | Create and validate new skills | Need to create a new skill |
 | **sw-using-superpowers** | Skill system bootstrap | Every conversation start |
 
@@ -140,7 +138,7 @@ Agent: [Automatically applies sw-brainstorming Skill]
       2. Ask clarifying questions...
       3. Propose 2-3 approaches...
       4. Present design in sections...
-      5. Write spec document → docs/superpowers/specs/2026-04-18--user-auth-design.md
+      5. Write spec document → docs/sw-superpower/specs/2026-04-18--user-auth-design.md
       6. Invoke sw-writing-specs to create implementation plan...
 ```
 
@@ -153,12 +151,8 @@ Each skill is a self-contained directory following a unified structure:
 ```
 sw-<skill-name>/
 ├── SKILL.md                    # Main skill file (required)
-├── subagent-prompts/           # Subagent prompts (optional)
-│   └── <name>-prompt.md
-├── templates/                  # Template files (optional)
-│   └── <template>.md
-└── scripts/                    # Scripts (optional)
-    └── <script>.sh
+└── subagent-prompts/           # Subagent prompts (optional)
+    └── <name>-prompt.md
 ```
 
 ### SKILL.md Format

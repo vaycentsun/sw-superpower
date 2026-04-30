@@ -58,7 +58,7 @@ HEAD_SHA=$(git rev-parse HEAD)
 
 [分派 sw-code-review 子 Agent]
   WHAT_WAS_IMPLEMENTED: 对话索引的验证和修复函数
-  PLAN_OR_REQUIREMENTS: docs/superpowers/plans/deployment-plan.md 中的任务 2
+  PLAN_OR_REQUIREMENTS: docs/sw-superpower/plans/deployment-plan.md 中的任务 2
   BASE_SHA: a7981ec
   HEAD_SHA: 3df7661
   DESCRIPTION: 添加了 verifyIndex() 和 repairIndex()，支持 4 种问题类型

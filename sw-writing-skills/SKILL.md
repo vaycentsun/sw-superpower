@@ -111,10 +111,8 @@ digraph skill_creation {
 ```
 skills/skill-name/
 ├── SKILL.md                    # 主 Skill 文件（必需）
-├── subagent-prompts/           # 子 Agent 提示词（可选）
-│   └── subagent-prompt.md
-└── templates/                  # 模板文件（可选）
-    └── template.md
+└── subagent-prompts/           # 子 Agent 提示词（可选）
+    └── subagent-prompt.md
 ```
 
 ## SKILL.md 结构

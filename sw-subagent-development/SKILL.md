@@ -1,6 +1,6 @@
 ---
 name: sw-subagent-development
-description: "Use when executing implementation plans with independent tasks in dev/ directory"
+description: "Use when executing implementation plans with independent tasks in the project"
 ---
 
 # Subagent-Driven Development - 子 Agent 驱动开发
@@ -85,7 +85,7 @@ digraph process {
 **读取计划文件**：
 ```bash
 # 一次性读取完整计划
-cat dev/specs/YYYY-MM-DD--feature.md
+cat docs/sw-superpower/specs/YYYY-MM-DD--feature.md
 ```
 
 **提取任务**：
@@ -259,7 +259,6 @@ cat dev/specs/YYYY-MM-DD--feature.md
 ## 集成
 
 **必需工作流 Skill：**
-- **sw-using-git-worktrees** - 必需：开始前设置隔离工作区
 - **sw-writing-specs** - 创建此 Skill 执行的计划
 - **sw-code-review** - 审查者子 Agent 的代码审查模板
 - **sw-finishing-branch** - 所有任务完成后完成开发
@@ -272,7 +271,7 @@ cat dev/specs/YYYY-MM-DD--feature.md
 ```
 你: 我使用子 Agent 驱动开发执行此计划。
 
-[读取计划文件: dev/specs/2026-04-08--auth.md]
+[读取计划文件: docs/sw-superpower/specs/2026-04-08--auth.md]
 [提取所有 5 个任务及其完整文本和上下文]
 [创建 TodoWrite 包含所有任务]
 
@@ -349,7 +348,7 @@ Spec 审查者: ✅ 现在 Spec 合规
 ```markdown
 ## 子 Agent 驱动开发完成
 
-**计划文件**: `dev/specs/2026-04-08--auth.md`
+**计划文件**: `docs/sw-superpower/specs/2026-04-08--auth.md`
 **任务数**: 5
 **完成**: 5/5
 

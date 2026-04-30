@@ -86,6 +86,5 @@ description: "Use when you have a written implementation plan to execute in a se
 ## 集成
 
 **必需工作流技能：**
-- **sw-using-git-worktrees** - 必需：开始前设置隔离工作区
 - **sw-writing-specs** - 创建此技能执行的计划
 - **sw-finishing-branch** - 所有任务完成后完成开发

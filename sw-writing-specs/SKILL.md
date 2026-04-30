@@ -1,6 +1,6 @@
 ---
 name: sw-writing-specs
-description: "Use when creating detailed implementation plan for dev/ directory with bite-sized tasks after design is approved"
+description: "Use when creating detailed implementation plan for the project with bite-sized tasks after design is approved"
 ---
 
 # Writing Specs - 编写实现计划
@@ -70,7 +70,7 @@ digraph process {
 
 ### 1. 读取 Spec 文件
 
-读取 `dev/specs/YYYY-MM-DD--<feature>.md` 文件，理解：
+读取 `docs/sw-superpower/specs/YYYY-MM-DD--<feature>.md` 文件，理解：
 - 设计概述
 - 组件和接口
 - 数据流
@@ -178,11 +178,11 @@ class User:
 
 ### 9. 保存计划
 
-保存到 `dev/specs/plans/YYYY-MM-DD--<feature>-plan.md`
+保存到 `docs/sw-superpower/plans/YYYY-MM-DD--<feature>-plan.md`
 
 提交到 Git：
 ```bash
-git add dev/specs/plans/YYYY-MM-DD--<feature>-plan.md
+git add docs/sw-superpower/plans/YYYY-MM-DD--<feature>-plan.md
 git commit -m "docs: add implementation plan for <feature>"
 ```
 
@@ -474,17 +474,16 @@ def test_login_user_not_found():
 
 **相关 Skill**:
 - sw-test-driven-dev - 确保每个任务遵循 TDD
-- sw-using-git-worktrees - 创建隔离工作区
 
 ## 输出示例
 
-**计划文件**: `dev/specs/plans/2026-04-08--auth-plan.md`
+**计划文件**: `docs/sw-superpower/plans/2026-04-08--auth-plan.md`
 
 **返回摘要格式**：
 ```markdown
 ## 实现计划完成
 
-**计划文件**: `dev/specs/plans/2026-04-08--auth-plan.md`
+**计划文件**: `docs/sw-superpower/plans/2026-04-08--auth-plan.md`
 **任务数**: 8
 **预计时间**: 40 分钟
 
