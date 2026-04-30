@@ -6,7 +6,7 @@
 
 ## 分派时机
 
-Spec 文档写入 `docs/sw-superpower/specs/` 后，进入实现规划前。
+Spec 文档写入 `docs/sw-superpower/specs/` 后，作为 Spec 自检的第一层被调用。在 Agent 完成第二层业务逻辑自检之前执行。
 
 ## 输入
 
@@ -17,7 +17,8 @@ Spec 文档写入 `docs/sw-superpower/specs/` 后，进入实现规划前。
 
 1. 读取并审查 Spec 文档
 2. 从以下维度评估：完整性、一致性、清晰性、范围聚焦度、YAGNI
-3. 判断 Spec 是否准备好进入实现规划阶段
+3. 输出审查结果，供 Agent 进行第二层业务逻辑自检
+4. 不代替用户做最终批准判断
 
 ## 要求
 
