@@ -1,6 +1,6 @@
 ---
 name: sw-systematic-debugging
-description: "Use when investigating bugs in dev/ directory, test failures, or unexpected behavior in code to find root cause systematically"
+description: "Use when investigating bugs in the project, test failures, or unexpected behavior in code to find root cause systematically"
 ---
 
 # Systematic Debugging - 系统化调试

@@ -12,8 +12,8 @@
   - `experimental.chat.messages.transform` — 在每个会话的第一条用户消息前，插入 `sw-using-superpowers/SKILL.md` 内容（加上工具映射）。
 
 ### 文件路径约定
-- **Spec 文件**: `docs/specs/YYYY-MM-DD--<feature-name>-design.md`
-- **计划文件**: `docs/plans/YYYY-MM-DD--<feature-name>-plan.md`
+- **Spec 文件**: `docs/sw-superpower/specs/YYYY-MM-DD--<feature-name>-design.md`
+- **计划文件**: `docs/sw-superpower/plans/YYYY-MM-DD--<feature-name>-plan.md`
 - **Skill 目录**: `sw-<skill-name>/`
 - **子 Agent 提示词**: `subagent-prompts/<name>-prompt.md`
 
@@ -40,7 +40,7 @@ bash tests/opencode/run-tests.sh
 bash tests/opencode/run-tests.sh -t test-skill-structure.sh
 ```
 
-### 技能文件约束（钩子 + 测试双重验证）
+### SKILL文件约束（钩子 + 测试双重验证）
 | 约束 | 详情 |
 |------|------|
 | **Frontmatter** | 必须以 `---` 开头，包含 `name:` 和 `description:` |
@@ -62,7 +62,7 @@ description: "Use when [specific trigger condition]"
 
 ```
 sw-superpower/
-├── sw-*/                  # 14 个技能目录，每个含 SKILL.md（+ 可选的 subagent-prompts/、templates/、scripts/）
+├── sw-*/                  # 13 个技能目录，每个含 SKILL.md（+ 可选的 subagent-prompts/）
 ├── .opencode/plugins/      # OpenCode 插件：sw-superpowers.js（自动注册技能 + 注入引导内容）
 ├── tests/opencode/         # Bash 测试套件（3 个测试：插件加载、技能结构、工具映射）
 ├── hooks/                  # Git 钩子（pre-push 验证）

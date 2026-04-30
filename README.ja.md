@@ -38,7 +38,6 @@ sw-superpower/
 ├── sw-executing-plans/            # 計画の実行
 ├── sw-verification-before-completion/  # 完了前検証
 ├── sw-finishing-branch/           # 開発ブランチの完了
-├── sw-using-git-worktrees/        # Git ワークツリー管理
 ├── sw-using-superpowers/          # スキルシステムブートストラップ（コアエントリ）
 └── sw-writing-skills/             # 新しいスキルの作成（メタスキル）
 ```
@@ -53,9 +52,9 @@ sw-superpower/
 新機能の開始
     ↓
 sw-brainstorming (ブレインストーミングと設計)
-    ↓ 出力: dev/specs/YYYY-MM-DD--feature.md
+    ↓ 出力: docs/sw-superpower/specs/YYYY-MM-DD--feature.md
 sw-writing-specs (実装計画の作成)
-    ↓ 出力: dev/specs/plans/YYYY-MM-DD--feature-plan.md
+    ↓ 出力: docs/sw-superpower/plans/YYYY-MM-DD--feature-plan.md
 sw-subagent-development (サブエージェント駆動開発)
     ├── sw-test-driven-dev (各タスクの TDD)
     ├── sw-requesting-code-review (タスク後のレビュー)
@@ -83,7 +82,6 @@ sw-finishing-branch (ブランチ完了)
 | **sw-executing-plans** | 同じセッションで計画をバッチ実行 | 計画あり、サブエージェント不使用 |
 | **sw-verification-before-completion** | 完了前の検証 | タスクを完了としてマークする準備完了 |
 | **sw-finishing-branch** | 検証、判断、ブランチのクリーンアップ | すべてのタスクが完了 |
-| **sw-using-git-worktrees** | 隔離されたワークスペースを作成 | 新機能の開始、並行開発が必要 |
 | **sw-writing-skills** | 新しいスキルを作成・検証 | 新しいスキルの作成が必要 |
 | **sw-using-superpowers** | スキルシステムブートストラップ | すべての会話の開始時 |
 
@@ -151,7 +149,7 @@ OpenCode を再起動するか、スキルをリロードします。
       2. 明確化の質問をする...
       3. 2-3 つのアプローチを提案...
       4. セクションごとに設計を提示...
-      5. 仕様ドキュメントを作成 → dev/specs/2026-04-18--user-auth.md
+      5. 仕様ドキュメントを作成 → docs/sw-superpower/specs/2026-04-18--user-auth.md
       6. sw-writing-specs を呼び出して実装計画を作成...
 ```
 
@@ -166,8 +164,7 @@ sw-<skill-name>/
 ├── SKILL.md                    # メインスキルファイル（必須）
 ├── subagent-prompts/           # サブエージェントプロンプト（オプション）
 │   └── <name>-prompt.md
-└── templates/                  # テンプレートファイル（オプション）
-    └── <template>.md
+
 ```
 
 ### SKILL.md 形式

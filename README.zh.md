@@ -38,7 +38,6 @@ sw-superpower/
 ├── sw-executing-plans/            # 执行计划
 ├── sw-verification-before-completion/  # 完成前验证
 ├── sw-finishing-branch/           # 完成开发分支
-├── sw-using-git-worktrees/        # Git 工作区管理
 ├── sw-using-superpowers/          # 技能系统引导（核心入口）
 └── sw-writing-skills/             # 编写新技能（元 Skill）
 ```
@@ -53,9 +52,9 @@ sw-superpower/
 开始新功能
     ↓
 sw-brainstorming (头脑风暴与设计)
-    ↓ 输出: dev/specs/YYYY-MM-DD--feature.md
+    ↓ 输出: docs/sw-superpower/specs/YYYY-MM-DD--feature.md
 sw-writing-specs (编写实现计划)
-    ↓ 输出: dev/specs/plans/YYYY-MM-DD--feature-plan.md
+    ↓ 输出: docs/sw-superpower/plans/YYYY-MM-DD--feature-plan.md
 sw-subagent-development (子 Agent 驱动开发)
     ├── sw-test-driven-dev (每个任务遵循 TDD)
     ├── sw-requesting-code-review (任务后审查)
@@ -83,7 +82,6 @@ sw-finishing-branch (完成分支)
 | **sw-executing-plans** | 同会话中批量执行计划 | 有实现计划，不使用子 Agent |
 | **sw-verification-before-completion** | 标记完成前验证 | 准备标记任务完成 |
 | **sw-finishing-branch** | 验证、决策、清理分支 | 所有任务完成 |
-| **sw-using-git-worktrees** | 创建隔离工作区 | 开始新功能，需要并行开发 |
 | **sw-writing-skills** | 创建和验证新 Skill | 需要创建新技能 |
 | **sw-using-superpowers** | 技能系统引导（核心入口） | 任何对话开始时 |
 
@@ -151,7 +149,7 @@ Agent: [自动应用 sw-brainstorming Skill]
       2. 提出澄清问题...
       3. 提出 2-3 种方案...
       4. 分节呈现设计...
-      5. 编写 Spec 文档 → dev/specs/2026-04-18--user-auth.md
+      5. 编写 Spec 文档 → docs/sw-superpower/specs/2026-04-18--user-auth.md
       6. 调用 sw-writing-specs 创建实现计划...
 ```
 
@@ -166,8 +164,7 @@ sw-<skill-name>/
 ├── SKILL.md                    # 主技能文件（必需）
 ├── subagent-prompts/           # 子 Agent 提示词（可选）
 │   └── <name>-prompt.md
-└── templates/                  # 模板文件（可选）
-    └── <template>.md
+
 ```
 
 ### SKILL.md 格式
