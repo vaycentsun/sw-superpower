@@ -1,6 +1,6 @@
 ---
 name: sw-brainstorming
-description: "Use when starting software development of new feature in dev/ directory, before writing implementation code"
+description: "Use when starting software development of new feature in the project, before writing implementation code"
 ---
 
 # Brainstorming - 头脑风暴与需求分析
@@ -27,7 +27,7 @@ description: "Use when starting software development of new feature in dev/ dire
 - [ ] **提出澄清问题** — 每次一个问题，理解目的/约束/成功标准
 - [ ] **提出 2-3 种方案** — 包含权衡和你的推荐
 - [ ] **分节呈现设计** — 按复杂度调整每节长度，每节后获得批准
-- [ ] **编写 Spec 文档** — 保存到 `dev/specs/YYYY-MM-DD--<name>.md`
+- [ ] **编写 Spec 文档** — 保存到 `docs/sw-superpower/specs/YYYY-MM-DD--<name>.md`
 - [ ] **Spec 自检** — 检查占位符、矛盾、歧义、范围
 - [ ] **用户审查 Spec** — 请用户审查书面 Spec
 - [ ] **调用 sw-writing-specs** — 创建实现计划
@@ -40,22 +40,17 @@ digraph brainstorming {
   
   start [label="开始", shape=ellipse];
   explore [label="1. 探索项目上下文\n检查文件、文档、提交", shape=box];
-  visual_check [label="涉及视觉问题？", shape=diamond];
-  offer_visual [label="提供视觉伴侣\n(单独消息)", shape=box];
   questions [label="2. 提出澄清问题\n每次一个", shape=box];
   approaches [label="3. 提出 2-3 种方案\n包含权衡", shape=box];
   present [label="4. 分节呈现设计\n每节后确认", shape=box];
   approve_design [label="用户批准设计？", shape=diamond];
-  write_spec [label="5. 编写 Spec 文档\n保存到 dev/specs/", shape=box];
+  write_spec [label="5. 编写 Spec 文档\n保存到 docs/sw-superpower/specs/", shape=box];
   self_review [label="6. Spec 自检\n修复问题", shape=box];
   user_review [label="7. 用户审查 Spec？", shape=diamond];
   invoke_writing [label="8. 调用 sw-writing-specs\n(唯一出口)", shape=doublecircle];
-  
+
   start -> explore;
-  explore -> visual_check;
-  visual_check -> offer_visual [label="是"];
-  visual_check -> questions [label="否"];
-  offer_visual -> questions;
+  explore -> questions;
   questions -> approaches;
   approaches -> present;
   present -> approve_design;
@@ -136,8 +131,8 @@ C) 外部服务（如 Firebase）
 ### 5. 编写 Spec 文档
 
 **文档规范**：
-- 将验证后的设计保存到 `dev/specs/YYYY-MM-DD--<feature-name>.md`
-- 使用 sw-brainstorming/templates/spec-template.md 模板
+- 将验证后的设计保存到 `docs/sw-superpower/specs/YYYY-MM-DD--<feature-name>.md`
+- 遵循 Spec 文档结构（见 subagent-prompts/spec-writer-prompt.md）
 - 提交到 Git
 
 ### 6. Spec 自检
@@ -155,7 +150,7 @@ C) 外部服务（如 Firebase）
 
 自检通过后，请用户审查书面 Spec：
 
-> "Spec 已编写并提交到 `dev/specs/YYYY-MM-DD--<name>.md`。请在继续制定实现计划前审查它，如有修改需求请告诉我。"
+> "Spec 已编写并提交到 `docs/sw-superpower/specs/YYYY-MM-DD--<name>.md`。请在继续制定实现计划前审查它，如有修改需求请告诉我。"
 
 等待用户回复。如果他们请求修改，进行修改并重新运行 Spec 审查循环。只有用户批准后才继续。
 
@@ -212,13 +207,13 @@ C) 外部服务（如 Firebase）
 
 ## 输出示例
 
-**Spec 文件路径**: `dev/specs/2026-04-08--user-authentication.md`
+**Spec 文件路径**: `docs/sw-superpower/specs/2026-04-08--user-authentication.md`
 
 **返回摘要格式**：
 ```markdown
 ## 头脑风暴完成
 
-**Spec 文件**: `dev/specs/2026-04-08--user-authentication.md`
+**Spec 文件**: `docs/sw-superpower/specs/2026-04-08--user-authentication.md`
 **设计状态**: ✅ 已批准
 **主要决策**:
 - 使用 JWT 进行身份验证
@@ -236,5 +231,4 @@ C) 外部服务（如 Firebase）
 - **sw-writing-specs** - 必须调用的下一个 Skill
 - 严禁直接调用实现类 Skill
 
-**相关 Skill**:
-- sw-using-git-worktrees - 如需创建隔离工作区
+**相关 Skill**: 无

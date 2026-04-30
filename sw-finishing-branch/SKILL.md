@@ -1,6 +1,6 @@
 ---
 name: sw-finishing-branch
-description: "Use when all development tasks in dev/ directory are complete and ready to merge, PR, keep, or discard the branch"
+description: "Use when all development tasks in the project are complete and ready to merge, PR, keep, or discard the branch"
 ---
 
 # Finishing Branch - 完成开发分支
@@ -52,7 +52,7 @@ digraph finish_process {
   create_pr [label="4b. 创建 PR", shape=box];
   keep [label="4c. 保留分支", shape=box];
   discard [label="4d. 丢弃分支", shape=box];
-  cleanup [label="5. 清理工作区\n(如使用 git worktree)", shape=box];
+  cleanup [label="5. 清理工作区", shape=box];
   update_spec [label="6. 更新 Spec 状态", shape=box];
   done [label="完成", shape=ellipse];
   
@@ -214,7 +214,7 @@ git push -u origin feature/user-auth
 - [x] 新增测试覆盖新功能
 
 ## Spec
-关联: `dev/specs/2026-04-08--user-auth.md`
+关联: `docs/sw-superpower/specs/2026-04-08--user-auth.md`
 
 ## 审查清单
 - [x] 代码遵循项目规范
@@ -257,21 +257,7 @@ git branch -D feature/user-auth
 
 ### 5. 清理工作区
 
-**如果使用 git worktree**：
-
-```bash
-# 切换到 main worktree
-cd /path/to/main/worktree
-
-# 移除 worktree
-git worktree remove /path/to/feature-worktree
-
-# 清理 worktree 记录
-git worktree prune
-```
-
 **清理检查清单**：
-- [ ] worktree 目录已删除
 - [ ] 无孤立进程
 - [ ] 磁盘空间已释放
 
@@ -280,7 +266,7 @@ git worktree prune
 **更新 Spec 文件**：
 
 ```yaml
-# 在 dev/specs/YYYY-MM-DD--feature.md 中
+# 在 docs/sw-superpower/specs/YYYY-MM-DD--feature.md 中
 
 status: implemented  # 或 merged
 
@@ -298,7 +284,7 @@ completion:
 **归档 Spec**：
 ```bash
 # 如果项目有归档流程
-git mv dev/specs/active/YYYY-MM-DD--feature.md dev/specs/archived/
+git mv docs/sw-superpower/specs/active/YYYY-MM-DD--feature.md docs/sw-superpower/specs/archived/
 git commit -m "docs: archive completed spec"
 ```
 
@@ -310,7 +296,7 @@ git commit -m "docs: archive completed spec"
 - [ ] 无错误输出
 - [ ] 用户已选择完成选项
 - [ ] 选择已执行（合并/PR/保留/丢弃）
-- [ ] 工作区已清理（如使用 worktree）
+- [ ] 工作区已清理
 - [ ] Spec 状态已更新
 - [ ] 更改已提交/推送
 
@@ -339,7 +325,7 @@ git commit -m "docs: archive completed spec"
 4. 🔄 CI/CD 正在运行 (https://ci.example.com/build/123)
 
 ### 相关资源
-- Spec: `dev/specs/archived/2026-04-08--user-auth.md`
+- Spec: `docs/sw-superpower/specs/archived/2026-04-08--user-auth.md`
 - 提交: `abc1234`
 ```
 
@@ -364,8 +350,7 @@ git commit -m "docs: archive completed spec"
 4. 合并到 main
 
 ### 保留资源
-- Worktree: `/path/to/worktrees/feature-user-auth/`
-- Spec: `dev/specs/active/2026-04-08--user-auth.md`
+- Spec: `docs/sw-superpower/specs/active/2026-04-08--user-auth.md`
 ```
 
 ## 集成
@@ -376,8 +361,7 @@ git commit -m "docs: archive completed spec"
 
 **后续**: 无（工作流终点）
 
-**相关 Skill**:
-- sw-using-git-worktrees - 如果使用了 worktree
+**相关 Skill**: 无
 
 ## 红旗 - 阻止完成
 
@@ -387,7 +371,7 @@ git commit -m "docs: archive completed spec"
 | "严重 bug 先记录，以后修复" | 严重 bug 未修复 = 不应完成。合并严重 bug = 污染 main |
 | "用户大概想合并" | 用户未明确选择 = 不应完成。必须确认用户意图 |
 | "文档可以以后更新" | 未完成文档更新 = 不应完成。文档是交付的一部分 |
-| "worktree 以后清理" | 未清理工作区 = 不应完成。清理是完成的组成部分 |
+| "工作区以后清理" | 未清理工作区 = 不应完成。清理是完成的组成部分 |
 
 ## 常见借口表
 
@@ -396,7 +380,7 @@ git commit -m "docs: archive completed spec"
 | "就剩一个测试失败，先完成" | 一个失败测试可能隐藏严重问题。所有测试必须通过 |
 | "用户忙，我先合并" | 未经用户明确确认的合并可能违背用户意图 |
 | "文档不重要，代码才重要" | 文档是维护和理解代码的基础。不完整的文档 = 不完整的功能 |
-| "worktree 不占多少空间" | 未清理的 worktree 积累会导致混乱和资源浪费 |
+| "工作区不占多少空间" | 未清理的工作区积累会导致混乱和资源浪费 |
 | "以后修 bug 比现在更快" | 已知 bug 合并到 main 后修复成本更高 |
 
 ## 最佳实践
@@ -405,4 +389,4 @@ git commit -m "docs: archive completed spec"
 2. **明确用户意图** - 确认用户想要合并/PR/保留/丢弃
 3. **备份重要工作** - 推送分支到远程再删除本地
 4. **更新文档** - 完成时更新 Spec 和 README
-5. **清理彻底** - 不遗留 worktree 或临时文件
+5. **清理彻底** - 不遗留临时文件或孤立目录

@@ -1,6 +1,6 @@
 ---
 name: sw-verification-before-completion
-description: "Use when marking development task or implementation in dev/ directory as complete to verify it works and meets requirements"
+description: "Use when marking development task or implementation in the project as complete to verify it works and meets requirements"
 ---
 
 # Verification Before Completion - 完成前验证
