@@ -80,6 +80,11 @@ digraph verification_process {
 }
 ```
 
+## 验证未通过时的处理
+
+- **简单问题**（如参数校验遗漏、错误消息不清、边界值处理不当）→ 直接修复，回到步骤 2 重新验证
+- **系统性 / 难以定位的问题**（如逻辑错误导致多测试失败、性能退化、并发异常）→ 调用 **`sw-systematic-debugging`** 排查根因，修复后回到本 skill 重新验证
+
 ## 验证检查清单
 
 ### 功能验证
@@ -319,7 +324,7 @@ npm run e2e
 - sw-test-driven-dev - 确保代码质量
 
 **后续 Skill**: 
-- sw-finishing-branch - 最终完成
+- 无（工作流终点）
 
 **相关 Skill**:
 - sw-systematic-debugging - 如果发现问题

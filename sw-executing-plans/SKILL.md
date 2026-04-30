@@ -32,8 +32,8 @@ description: "Use when you have a written implementation plan to execute in a se
 ### 步骤 3：完成开发
 
 所有任务完成并验证后：
-- 声明："我正在使用 `sw-finishing-branch` 技能来完成此工作。"
-- **必需子技能：** 使用 `sw-finishing-branch`
+- 声明："我正在使用 `sw-verification-before-completion` 技能来完成此工作。"
+- **必需子技能：** 使用 `sw-verification-before-completion`
 - 遵循该技能验证测试、呈现选项、执行选择
 
 ## 何时停止并寻求帮助
@@ -87,4 +87,4 @@ description: "Use when you have a written implementation plan to execute in a se
 
 **必需工作流技能：**
 - **sw-writing-specs** - 创建此技能执行的计划
-- **sw-finishing-branch** - 所有任务完成后完成开发
+- **sw-verification-before-completion** - 所有任务完成后验证并标记完成
