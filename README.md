@@ -78,7 +78,7 @@ sw-finishing-branch (Finishing Branch)
 | Skill | Purpose | Trigger Condition |
 |-------|---------|-------------------|
 | **sw-brainstorming** | Transform ideas into complete design and specs | Starting new feature development |
-| **sw-writing-specs** | Create detailed implementation plans | Design approved, need execution plan |
+| **sw-writing-specs** | Create detailed implementation plans | Design completed, need execution plan |
 | **sw-subagent-development** | Execute plans using subagents | Have implementation plan, tasks are independent |
 | **sw-executing-plans** | Batch execute plans in same session | Have plan, not using subagents |
 | **sw-test-driven-dev** | Enforce RED-GREEN-REFACTOR cycle | Implementing any feature or fixing bugs |

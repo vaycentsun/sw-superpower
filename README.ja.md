@@ -72,7 +72,7 @@ sw-finishing-branch (ブランチ完了)
 | スキル | 目的 | トリガー条件 |
 |-------|------|-------------|
 | **sw-brainstorming** | アイデアを完全な設計と仕様に変換 | 新機能開発の開始 |
-| **sw-writing-specs** | 詳細な実装計画を作成 | 設計が承認され、実行計画が必要 |
+| **sw-writing-specs** | 詳細な実装計画を作成 | 設計が完了し、実行計画が必要 |
 | **sw-subagent-development** | サブエージェントを使用して計画を実行 | 実装計画があり、タスクが独立している |
 | **sw-test-driven-dev** | RED-GREEN-REFACTOR サイクルを強制 | 機能の実装またはバグ修正 |
 | **sw-requesting-code-review** | コードレビュー依頼（レビューエージェント派遣） | タスク完了後、マージ前 |

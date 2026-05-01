@@ -72,7 +72,7 @@ sw-finishing-branch (完成分支)
 | Skill | 用途 | 触发条件 |
 |-------|------|----------|
 | **sw-brainstorming** | 将想法转化为完整设计和 Spec | 开始新功能开发 |
-| **sw-writing-specs** | 创建详细的实现计划 | 设计已批准，需要执行计划 |
+| **sw-writing-specs** | 创建详细的实现计划 | 设计已完成，需要执行计划 |
 | **sw-subagent-development** | 使用子 Agent 执行计划 | 有实现计划，任务相对独立 |
 | **sw-test-driven-dev** | 强制 RED-GREEN-REFACTOR 循环 | 实现任何功能或修复 Bug |
 | **sw-requesting-code-review** | 请求代码审查（分派审查 Agent） | 完成任务、实现主要功能、合并前 |

@@ -1,11 +1,11 @@
 ---
 name: sw-writing-specs
-description: "Use when creating detailed implementation plan for the project with bite-sized tasks after design is approved"
+description: "Use when creating detailed implementation plan for the project with bite-sized tasks after design is completed"
 ---
 
 # Writing Specs - 编写实现计划
 
-将批准的设计转化为详细的实现计划，包含可执行的小任务（每个 2-5 分钟）。
+将完整的设计转化为详细的实现计划，包含可执行的小任务（每个 2-5 分钟）。
 
 ## 检查清单
 
@@ -43,13 +43,13 @@ description: "Use when creating detailed implementation plan for the project wit
 digraph when_to_use {
   rankdir=TB;
   
-  design_approved [label="设计已批准？", shape=diamond];
+  design_completed [label="设计已完成？", shape=diamond];
   has_spec [label="有书面 Spec？", shape=diamond];
   write_specs [label="sw-writing-specs", shape=box];
   need_design [label="先执行 sw-brainstorming", shape=box];
   
-  design_approved -> has_spec [label="是"];
-  design_approved -> need_design [label="否"];
+  design_completed -> has_spec [label="是"];
+  design_completed -> need_design [label="否"];
   has_spec -> write_specs [label="是"];
   has_spec -> need_design [label="否"];
 }
@@ -99,11 +99,11 @@ digraph process {
 
 在开始前检查：
 1. **Spec 文件存在性**：`docs/sw-superpower/specs/YYYY-MM-DD--<feature>.md` 是否存在？
-2. **设计已批准**：该 Spec 是否已通过 `sw-brainstorming` 的用户审查门控？
+2. **设计已完成**：该 Spec 是否已通过 `sw-brainstorming` 的两层自检？
 
 如果任一检查失败：
 - **Spec 不存在** → 告知用户："未找到 Spec 文件。请先执行 sw-brainstorming 完成设计阶段。"
-- **设计未明确批准** → 告知用户："设计尚未获得明确批准。请返回 sw-brainstorming 完成审查流程。"
+- **设计不完整** → 告知用户："设计尚未完成两层自检。请返回 sw-brainstorming 完成自检流程。"
 - **两者都通过** → 继续执行第 1 步
 
 ### 1. 读取 Spec 文件
@@ -228,7 +228,7 @@ digraph process {
 **执行方式：**
 - Agent 自身对照清单逐项检查，无需启动子 Agent。
 - 发现任何问题 → 修复计划 → 重新运行本自检清单。
-- 全部通过后，进入用户审查门控。
+- 全部通过后，展示计划摘要并自动保存。
 
 ### 8. 展示计划摘要
 
@@ -437,7 +437,7 @@ def login(username: str, password: str) -> User | None
 
 ## 集成
 
-**前置 Skill**: sw-brainstorming（提供批准的 Spec）
+**前置 Skill**: sw-brainstorming（提供完整的 Spec）
 
 **后续 Skill**: sw-subagent-development（执行计划）
 
