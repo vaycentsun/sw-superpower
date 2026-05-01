@@ -9,7 +9,7 @@ description: "Use when creating detailed implementation plan for the project wit
 
 ## 检查清单
 
-- [ ] **入口门控** — 确认 Spec 文件存在且设计已获明确批准
+- [ ] **入口门控** — 确认 Spec 文件存在且设计已完整
 - [ ] **读取 Spec** — 理解设计概述、组件接口、数据流、验收标准
 - [ ] **提取组件** — 列出需要创建/修改的文件和函数/类接口
 - [ ] **识别任务类型** — 创建、修改、测试、配置、文档
@@ -17,9 +17,9 @@ description: "Use when creating detailed implementation plan for the project wit
 - [ ] **排序任务** — 按依赖关系排序，基础优先，测试紧随
 - [ ] **编写详细计划** — 每个任务包含确切文件路径、完整代码、验证步骤
 - [ ] **深度自检** — 执行整合自检清单：完整性、Spec 对齐、任务分解、可构建性、验收标准覆盖、粒度、明确性、可验证性、顺序合理性
-- [ ] **用户审查门控** — 获得明确批准（✅）后才继续；如遇根本性异议则回退到 `sw-brainstorming`
-- [ ] **保存计划** — 保存到 `docs/sw-superpower/plans/`，询问用户后提交 Git
-- [ ] **调用 sw-subagent-development** — 交接计划文件路径和依赖摘要
+- [ ] **展示计划摘要** — 向用户展示计划概览，自动保存文件
+- [ ] **保存计划** — 保存到 `docs/sw-superpower/plans/`，提交 Git 前每次询问用户
+- [ ] **自动调用 sw-subagent-development** — 交接计划文件路径和依赖摘要
 
 ## 核心原则
 
@@ -32,11 +32,10 @@ description: "Use when creating detailed implementation plan for the project wit
 
 **TDD 集成：** 每个实现任务后必须紧跟对应的测试任务。测试验证必须包含 RED（先失败）→ GREEN（实现后通过）。
 
-**铁律：在用户明确批准计划之前，严禁：**
-- 调用 `sw-subagent-development` 开始实现
-- 跳过深度自检
-- 忽略入口门控直接读取 Spec
-- 以任何理由绕过用户审查门控
+**铁律：**
+- 调用 `sw-subagent-development` 开始实现前，必须完成深度自检并保存计划文件
+- 严禁跳过深度自检
+- 严禁忽略入口门控直接读取 Spec
 
 ## 何时使用
 
@@ -63,7 +62,7 @@ digraph process {
   rankdir=TB;
 
   start [label="开始", shape=ellipse];
-  gate [label="0. 入口门控\nSpec 存在？设计批准？", shape=diamond];
+  gate [label="0. 入口门控\nSpec 存在？设计完整？", shape=diamond];
   need_design [label="返回\nsw-brainstorming", shape=box];
   read_spec [label="1. 读取 Spec 文件", shape=box];
   extract_components [label="2. 提取组件和接口", shape=box];
@@ -73,9 +72,8 @@ digraph process {
   write_plan [label="6. 编写详细计划", shape=box];
   self_review [label="7. 深度自检\n整合自检清单", shape=box];
   self_fix [label="修复问题", shape=box];
-  user_review [label="8. 用户审查？", shape=diamond];
-  user_fix [label="修改计划", shape=box];
-  save_plan [label="9. 保存计划\n用户确认后提交 Git", shape=box];
+  show_summary [label="8. 展示计划摘要", shape=box];
+  save_plan [label="9. 保存计划\n提交前每次询问", shape=box];
   invoke_subagent [label="10. 调用 sw-subagent-development", shape=doublecircle];
 
   start -> gate;
@@ -89,10 +87,8 @@ digraph process {
   write_plan -> self_review;
   self_review -> self_fix [label="发现问题"];
   self_fix -> self_review;
-  self_review -> user_review [label="通过"];
-  user_review -> user_fix [label="需要修改"];
-  user_fix -> self_review [label="修改后重新自检"];
-  user_review -> save_plan [label="批准"];
+  self_review -> show_summary [label="通过"];
+  show_summary -> save_plan;
   save_plan -> invoke_subagent;
 }
 ```
@@ -234,9 +230,9 @@ digraph process {
 - 发现任何问题 → 修复计划 → 重新运行本自检清单。
 - 全部通过后，进入用户审查门控。
 
-### 8. 用户审查门控
+### 8. 展示计划摘要
 
-深度自检通过后，展示计划给用户：
+深度自检通过后，向用户展示计划摘要，然后**自动保存并推进**：
 
 > "实现计划已编写完成。计划包含 N 个任务：
 > - 任务 1-3: 数据模型和测试
@@ -245,28 +241,27 @@ digraph process {
 > 
 > 预计总时间：X 分钟。
 > 
-> 请审查计划，如有调整请告知。"
+> 现在自动保存计划文件并进入实现阶段。"
 
-**批准判定标准**：
-- ✅ **明确批准**（任一算批准）："LGTM"、"批准"、"继续"、"没问题"、"可以进入实现"、"Go ahead"
-- ❓ **模糊回应**（如"先这样吧"、"看看再说"、"差不多"、"OK"、"嗯"）：**必须追问** — "请明确确认这个计划可以进入实现阶段吗？"
-- ❓ **不确定**：如果你不确定用户的回复是否算批准 — **直接问用户** — "请问您是批准这个计划进入实现阶段，还是需要修改？"
-- ❌ **修改请求**：回到计划修改，重新执行自检清单 + 用户审查循环。
+**自动推进**：展示摘要后自动保存文件并调用 `sw-subagent-development`，无需等待用户回复。用户如有修改需求可随时打断。
 
 **根本性异议回退**：如果用户对计划方向有**根本性异议**（如"这个方案完全不行"、"Spec 本身有问题"、"需要重新设计"），不要在本计划中反复修改。立即回退到：
 - **Spec 缺陷** → 回到 `sw-brainstorming`，重新审查或修改 Spec
 - **设计方向错误** → 回到 `sw-brainstorming`，重新提出方案
 
-**铁律**：只有收到明确的 ✅ 批准信号后才继续。
-
 ### 9. 保存计划
 
 保存到 `docs/sw-superpower/plans/YYYY-MM-DD--<feature>-plan.md`
 
-**Git 提交**：询问用户确认后再提交：
-> "计划文件已保存到 `docs/sw-superpower/plans/YYYY-MM-DD--<feature>-plan.md`。是否需要我将其提交到 Git？"
+**Git 提交（铁律）**：
+> **严禁一次性授权自动提交。每次 `git commit` 前都必须单独询问用户。**
 
-只有用户明确同意后才执行 `git add` 和 `git commit`。
+提交前询问模板：
+> "计划文件已保存到 `docs/sw-superpower/plans/YYYY-MM-DD--<feature>-plan.md`。
+> 准备执行 `git commit`，变更摘要：新增实现计划文件。
+> 是否允许提交？"
+
+只有用户明确允许后才执行 `git add` 和 `git commit`。用户说"好的"、"可以"等模糊回应不算明确允许——必须追问："请明确回复'允许提交'或'不允许'。"
 
 ### 10. 进入实现阶段
 
@@ -358,8 +353,11 @@ if password_expired:
 | "自检清单遗漏验收标准覆盖" | 验收标准没对应验证任务 = Spec 目标无法验证。必须逐条对照 |
 | "修复后未重新执行自检清单" | 修改可能引入新的占位符或矛盾。重新自检是铁律 |
 | "修改任务必须写完整代码上下文" | 变更描述 + 关键逻辑足够让实现者定位。不需要把 plan 变成代码 diff |
-| "设计没批准就开始写计划" | 未经批准的设计可能方向错误。先确认入口门控 |
-| "计划文件直接提交 Git" | AGENTS.md 要求用户确认后才提交。询问是强制步骤 |
+| "设计不完整就开始写计划" | 不完整的设计可能方向错误。先确认入口门控 |
+| "计划文件直接提交 Git" | 每次提交前必须单独询问用户。不允许一次性授权 |
+| "用户会同意提交的，不用问" | 每次提交前必须单独询问。假设用户同意 = 违规 |
+| "plan 里不写完整代码，实现时会出错" | 创建任务写代码，修改/测试写描述+场景，足够指导实现。完整代码在实现阶段写 |
+| "TDD 只是建议，实现完再补测试也行" | 测试后置 = 测试被跳过或质量差。计划中必须实现+测试成对出现 |
 
 ## 常见借口表
 
@@ -370,11 +368,10 @@ if password_expired:
 | "文件路径实现时再定" | 模糊的文件路径导致实现者做不必要的决策 |
 | "测试可以单独一个阶段" | 测试紧随实现是 TDD 原则。分离测试 = 可能跳过 |
 | "依赖关系很复杂，简化一下" | 错误的依赖关系导致实现阻塞。复杂依赖需要仔细分析 |
-| "入口门控太麻烦，直接读 Spec" | 没有 Spec 或设计未批准就写计划 = 方向错误 + 浪费轮次。门控不可跳过 |
+| "入口门控太麻烦，直接读 Spec" | 没有 Spec 或设计不完整就写计划 = 方向错误 + 浪费轮次。门控不可跳过 |
 | "自检清单太繁琐，快速过一下就行" | 整合清单同时覆盖结构缺陷（TODO/占位符）和逻辑缺陷（验收标准遗漏）。跳过 = 有漏洞 |
-| "用户会同意提交的，不用问" | AGENTS.md 强制要求用户确认后才提交。假设用户同意 = 违规 |
+| "用户会同意提交的，不用问" | 每次提交前必须单独询问。假设用户同意 = 违规 |
 | "plan 里不写完整代码，实现时会出错" | 创建任务写代码，修改/测试写描述+场景，足够指导实现。完整代码在实现阶段写 |
-| "TDD 只是建议，实现完再补测试也行" | 测试后置 = 测试被跳过或质量差。计划中必须实现+测试成对出现 |
 
 ## YAGNI 原则
 
