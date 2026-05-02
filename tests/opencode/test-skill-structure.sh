@@ -84,6 +84,37 @@ for skill_file in "$REPO_ROOT"/sw-*/SKILL.md; do
 
 done
 
+# Test 9: Markdown links in SKILL.md must point to existing files
+for skill_file in "$REPO_ROOT"/sw-*/SKILL.md; do
+    if [ ! -f "$skill_file" ]; then
+        continue
+    fi
+
+    skill_dir=$(dirname "$skill_file")
+    skill_name=$(basename "$skill_dir")
+
+    # Extract relative markdown links [text](path)
+    # Use a temp file to avoid pipe subshell issues
+    links_temp=$(mktemp)
+    grep -oE '\[([^]]+)\]\(([^)]+)\)' "$skill_file" > "$links_temp" 2>/dev/null || true
+
+    while IFS= read -r link; do
+        # Extract the path from the link
+        link_path=$(echo "$link" | sed -E 's/.*\]\(([^)]+)\).*/\1/')
+        # Skip external URLs (http/https)
+        if echo "$link_path" | grep -qE '^https?://'; then
+            continue
+        fi
+        # Check if the linked file exists relative to the skill directory
+        full_link_path="$skill_dir/$link_path"
+        if [ ! -f "$full_link_path" ]; then
+            echo "  [FAIL] $skill_name: Broken markdown link: $link_path (file not found)"
+            FAILED=1
+        fi
+    done < "$links_temp"
+    rm -f "$links_temp"
+done
+
 echo "  [INFO] Checked $SKILL_COUNT skill files"
 
 if [ "$FAILED" -eq 0 ]; then
