@@ -37,40 +37,23 @@ description: "Use when starting software development of new feature in the proje
 
 ## 流程图
 
-```dot
-digraph brainstorming {
-  rankdir=TB;
-
-  start [label="开始", shape=ellipse];
-  explore [label="1. 探索项目上下文\n检查文件、文档、提交", shape=box];
-  questions [label="2. 提出澄清问题\n每次一个", shape=box];
-  approaches [label="3. 提出 2-3 种方案\n包含权衡", shape=box];
-  present [label="4. 分节呈现设计\n当前节", shape=box];
-  all_sections_done [label="所有节完成？", shape=diamond];
-  write_spec [label="5. 编写 Spec 文档\n保存到 docs/sw-superpower/specs/", shape=box];
-  layer1_review [label="6a. 第一层自检\nspec-document-reviewer 子 Agent", shape=box];
-  layer1_fix [label="修复问题", shape=box];
-  layer2_review [label="6b. 第二层自检\n业务逻辑校准", shape=box];
-  layer2_fix [label="修复问题", shape=box];
-  show_summary [label="7. 展示 Spec 摘要", shape=box];
-  invoke_writing [label="8. 调用 sw-writing-specs\n(唯一出口)", shape=doublecircle];
-
-  start -> explore;
-  explore -> questions;
-  questions -> approaches;
-  approaches -> present;
-  present -> all_sections_done;
-  all_sections_done -> present [label="否，下一节"];
-  all_sections_done -> write_spec [label="是"];
-  write_spec -> layer1_review;
-  layer1_review -> layer1_fix [label="发现问题"];
-  layer1_fix -> layer1_review;
-  layer1_review -> layer2_review [label="通过"];
-  layer2_review -> layer2_fix [label="发现问题"];
-  layer2_fix -> layer1_review [label="修改后重跑第一层"];
-  layer2_review -> show_summary [label="两层通过"];
-  show_summary -> invoke_writing;
-}
+```mermaid
+flowchart TD
+    Start([开始]) --> Explore[1. 探索项目上下文<br/>检查文件、文档、提交]
+    Explore --> Questions[2. 提出澄清问题<br/>每次一个]
+    Questions --> Approaches[3. 提出 2-3 种方案<br/>包含权衡]
+    Approaches --> Present[4. 分节呈现设计<br/>当前节]
+    Present --> AllSectionsDone{所有节完成？}
+    AllSectionsDone -->|否，下一节| Present
+    AllSectionsDone -->|是| WriteSpec[5. 编写 Spec 文档<br/>保存到 docs/sw-superpower/specs/]
+    WriteSpec --> Layer1Review[6a. 第一层自检<br/>spec-document-reviewer 子 Agent]
+    Layer1Review -->|发现问题| Layer1Fix[修复问题]
+    Layer1Fix --> Layer1Review
+    Layer1Review -->|通过| Layer2Review[6b. 第二层自检<br/>业务逻辑校准]
+    Layer2Review -->|发现问题| Layer2Fix[修复问题]
+    Layer2Fix -->|修改后重跑第一层| Layer1Review
+    Layer2Review -->|两层通过| ShowSummary[7. 展示 Spec 摘要]
+    ShowSummary --> InvokeWriting([8. 调用 sw-writing-specs<br/>唯一出口])
 ```
 
 ## 详细流程

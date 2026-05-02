@@ -39,58 +39,32 @@ description: "Use when creating detailed implementation plan for the project wit
 
 ## 何时使用
 
-```dot
-digraph when_to_use {
-  rankdir=TB;
-  
-  design_completed [label="设计已完成？", shape=diamond];
-  has_spec [label="有书面 Spec？", shape=diamond];
-  write_specs [label="sw-writing-specs", shape=box];
-  need_design [label="先执行 sw-brainstorming", shape=box];
-  
-  design_completed -> has_spec [label="是"];
-  design_completed -> need_design [label="否"];
-  has_spec -> write_specs [label="是"];
-  has_spec -> need_design [label="否"];
-}
+```mermaid
+flowchart TD
+    A{设计已完成？} -->|是| B{有书面 Spec？}
+    A -->|否| C[先执行 sw-brainstorming]
+    B -->|是| D[sw-writing-specs]
+    B -->|否| C
 ```
 
 ## 流程
 
-```dot
-digraph process {
-  rankdir=TB;
-
-  start [label="开始", shape=ellipse];
-  gate [label="0. 入口门控\nSpec 存在？设计完整？", shape=diamond];
-  need_design [label="返回\nsw-brainstorming", shape=box];
-  read_spec [label="1. 读取 Spec 文件", shape=box];
-  extract_components [label="2. 提取组件和接口", shape=box];
-  identify_tasks [label="3. 识别实现任务", shape=box];
-  break_down [label="4. 拆解为小任务\n(2-5 分钟每个)", shape=box];
-  order_tasks [label="5. 排序任务\n(依赖关系)", shape=box];
-  write_plan [label="6. 编写详细计划", shape=box];
-  self_review [label="7. 深度自检\n整合自检清单", shape=box];
-  self_fix [label="修复问题", shape=box];
-  show_summary [label="8. 展示计划摘要", shape=box];
-  save_plan [label="9. 保存计划\n提交前每次询问", shape=box];
-  invoke_subagent [label="10. 调用 sw-subagent-development", shape=doublecircle];
-
-  start -> gate;
-  gate -> need_design [label="否"];
-  gate -> read_spec [label="是"];
-  read_spec -> extract_components;
-  extract_components -> identify_tasks;
-  identify_tasks -> break_down;
-  break_down -> order_tasks;
-  order_tasks -> write_plan;
-  write_plan -> self_review;
-  self_review -> self_fix [label="发现问题"];
-  self_fix -> self_review;
-  self_review -> show_summary [label="通过"];
-  show_summary -> save_plan;
-  save_plan -> invoke_subagent;
-}
+```mermaid
+flowchart TD
+    Start([开始]) --> Gate{0. 入口门控<br/>Spec 存在？设计完整？}
+    Gate -->|否| NeedDesign[返回<br/>sw-brainstorming]
+    Gate -->|是| ReadSpec[1. 读取 Spec 文件]
+    ReadSpec --> Extract[2. 提取组件和接口]
+    Extract --> Identify[3. 识别实现任务]
+    Identify --> BreakDown[4. 拆解为小任务<br/>2-5 分钟每个]
+    BreakDown --> Order[5. 排序任务<br/>依赖关系]
+    Order --> WritePlan[6. 编写详细计划]
+    WritePlan --> SelfReview[7. 深度自检<br/>整合自检清单]
+    SelfReview -->|发现问题| SelfFix[修复问题]
+    SelfFix --> SelfReview
+    SelfReview -->|通过| ShowSummary[8. 展示计划摘要]
+    ShowSummary --> SavePlan[9. 保存计划<br/>提交前每次询问]
+    SavePlan --> InvokeSubagent([10. 调用 sw-subagent-development])
 ```
 
 ## 详细步骤

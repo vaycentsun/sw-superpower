@@ -59,7 +59,7 @@ done
 for skill_file in "$REPO_ROOT"/sw-*/SKILL.md; do
     if [ -f "$skill_file" ]; then
         line_count=$(wc -l < "$skill_file")
-        if [ "$line_count" -gt 500 ]; then
+        if [ "$line_count" -gt 600 ]; then
             echo "  [失败] $(basename "$(dirname "$skill_file")")/SKILL.md 共 $line_count 行（上限 600）"
             FAILED=1
         fi

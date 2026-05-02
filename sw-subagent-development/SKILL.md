@@ -15,74 +15,42 @@ description: "Use when executing implementation plans with independent tasks in 
 
 ## 何时使用
 
-```dot
-digraph when_to_use {
-  rankdir=TB;
-  
-  has_plan [label="有实现计划？", shape=diamond];
-  independent [label="任务大部分独立？", shape=diamond];
-  stay_session [label="保持此会话？", shape=diamond];
-  subagent [label="sw-subagent-development", shape=box];
-  manual [label="手动执行或\n先头脑风暴", shape=box];
-  
-  has_plan -> independent [label="是"];
-  has_plan -> manual [label="否"];
-  independent -> stay_session [label="是"];
-  independent -> manual [label="否 - 紧密耦合"];
-  stay_session -> subagent [label="是"];
-}
+```mermaid
+flowchart TD
+    A{有实现计划？} -->|是| B{任务大部分独立？}
+    A -->|否| C[手动执行或先头脑风暴]
+    B -->|是| D{保持此会话？}
+    B -->|否 - 紧密耦合| C
+    D -->|是| E[sw-subagent-development]
 ```
 
 ## 完整流程
 
-```dot
-digraph process {
-  rankdir=TB;
-  
-  start [label="开始", shape=ellipse];
-  read_plan [label="读取计划\n提取所有任务\n创建 TodoWrite", shape=box];
-  dispatch_impl [label="分派实现子 Agent\n(./implementer-prompt.md)", shape=box];
-  impl_asks [label="实现者提问？", shape=diamond];
-  answer [label="回答问题\n提供上下文", shape=box];
-  impl_work [label="实现者：实现、\n测试、准备提交、自审", shape=box];
-  dispatch_spec [label="分派 Spec 审查者\n(./spec-reviewer-prompt.md)", shape=box];
-  spec_ok [label="符合 Spec？", shape=diamond];
-  fix_spec [label="实现者修复\nSpec 问题", shape=box];
-  dispatch_code [label="分派代码质量审查者\n(./code-quality-reviewer-prompt.md)", shape=box];
-  code_ok [label="代码质量通过？", shape=diamond];
-  fix_code [label="实现者修复\n质量问题", shape=box];
-  show_summary [label="展示任务摘要\n自动推进", shape=box];
-  mark_done [label="标记任务完成\n(TodoWrite)", shape=box];
-  more_tasks [label="更多任务？", shape=diamond];
-  final_review [label="最终代码审查", shape=box];
-  show_final [label="展示整体摘要\n自动调用验证", shape=box];
-  fix_final [label="根据反馈\n修复或调整", shape=box];
-  finish [label="调用 sw-verification-before-completion", shape=doublecircle];
-  
-  start -> read_plan;
-  read_plan -> dispatch_impl;
-  dispatch_impl -> impl_asks;
-  impl_asks -> answer [label="是"];
-  answer -> dispatch_impl;
-  impl_asks -> impl_work [label="否"];
-  impl_work -> dispatch_spec;
-  dispatch_spec -> spec_ok;
-  spec_ok -> fix_spec [label="否"];
-  fix_spec -> dispatch_spec [label="重审 (≤3次)"];
-  spec_ok -> dispatch_code [label="是"];
-  dispatch_code -> code_ok;
-  code_ok -> fix_code [label="否"];
-  fix_code -> dispatch_code [label="重审 (≤3次)"];
-  code_ok -> show_summary;
-  show_summary -> mark_done;
-  mark_done -> more_tasks;
-  more_tasks -> dispatch_impl [label="是"];
-  more_tasks -> final_review [label="否"];
-  final_review -> show_final;
-  show_final -> fix_final [label="用户反馈问题"];
-  fix_final -> dispatch_impl [label="分派相关实现者修复"];
-  show_final -> finish;
-}
+```mermaid
+flowchart TD
+    Start([开始]) --> Read[读取计划<br/>提取所有任务<br/>创建 TodoWrite]
+    Read --> DispatchImpl[分派实现子 Agent<br/>./implementer-prompt.md]
+    DispatchImpl --> ImplAsks{实现者提问？}
+    ImplAsks -->|是| Answer[回答问题<br/>提供上下文]
+    Answer --> DispatchImpl
+    ImplAsks -->|否| ImplWork[实现者：实现、测试、<br/>准备提交、自审]
+    ImplWork --> DispatchSpec[分派 Spec 审查者<br/>./spec-reviewer-prompt.md]
+    DispatchSpec --> SpecOk{符合 Spec？}
+    SpecOk -->|否| FixSpec[实现者修复 Spec 问题]
+    FixSpec -->|重审 ≤3次| DispatchSpec
+    SpecOk -->|是| DispatchCode[分派代码质量审查者<br/>./code-quality-reviewer-prompt.md]
+    DispatchCode --> CodeOk{代码质量通过？}
+    CodeOk -->|否| FixCode[实现者修复质量问题]
+    FixCode -->|重审 ≤3次| DispatchCode
+    CodeOk -->|是| ShowSummary[展示任务摘要<br/>自动推进]
+    ShowSummary --> MarkDone[标记任务完成<br/>TodoWrite]
+    MarkDone --> MoreTasks{更多任务？}
+    MoreTasks -->|是| DispatchImpl
+    MoreTasks -->|否| FinalReview[最终代码审查]
+    FinalReview --> ShowFinal[展示整体摘要<br/>自动调用验证]
+    ShowFinal --> FixFinal[根据反馈<br/>修复或调整]
+    FixFinal --> DispatchImpl
+    ShowFinal --> Finish([调用 sw-verification-before-completion])
 ```
 
 ## 执行检查清单

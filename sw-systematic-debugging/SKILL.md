@@ -18,49 +18,27 @@ description: "Use when investigating bugs in the project, test failures, or unex
 
 ## 何时使用
 
-```dot
-digraph when_to_use {
-  rankdir=TB;
-  
-  bug_report [label="发现 Bug？", shape=diamond];
-  test_fail [label="测试失败？", shape=diamond];
-  unexpected [label="意外行为？", shape=diamond];
-  debug [label="sw-systematic-debugging", shape=box];
-  
-  bug_report -> debug [label="是"];
-  test_fail -> debug [label="是"];
-  unexpected -> debug [label="是"];
-}
+```mermaid
+flowchart TD
+    A[发现 Bug？] -->|是| D[sw-systematic-debugging]
+    B[测试失败？] -->|是| D
+    C[意外行为？] -->|是| D
 ```
 
 ## 调试流程
 
-```dot
-digraph debugging_process {
-  rankdir=TB;
-  
-  start [label="开始调试", shape=ellipse];
-  reproduce [label="1. 重现问题\n建立基线", shape=box];
-  gather [label="2. 收集信息\n日志、错误、状态", shape=box];
-  form_hypothesis [label="3. 形成假设\n可能的原因", shape=box];
-  test_hypothesis [label="4. 测试假设\n验证或排除", shape=box];
-  confirmed [label="假设确认？", shape=diamond];
-  narrow [label="5. 缩小范围\n精确定位", shape=box];
-  root_cause [label="6. 确认根本原因\n找到确切原因", shape=box];
-  fix [label="7. 修复并验证\n修复 + 测试", shape=box];
-  done [label="结束", shape=ellipse];
-  
-  start -> reproduce;
-  reproduce -> gather;
-  gather -> form_hypothesis;
-  form_hypothesis -> test_hypothesis;
-  test_hypothesis -> confirmed;
-  confirmed -> form_hypothesis [label="排除，新假设"];
-  confirmed -> narrow [label="确认"];
-  narrow -> root_cause;
-  root_cause -> fix;
-  fix -> done;
-}
+```mermaid
+flowchart TD
+    Start([开始调试]) --> Reproduce[1. 重现问题<br/>建立基线]
+    Reproduce --> Gather[2. 收集信息<br/>日志、错误、状态]
+    Gather --> Form[3. 形成假设<br/>可能的原因]
+    Form --> Test[4. 测试假设<br/>验证或排除]
+    Test --> Confirm{假设确认？}
+    Confirm -->|排除，新假设| Form
+    Confirm -->|确认| Narrow[5. 缩小范围<br/>精确定位]
+    Narrow --> Root[6. 确认根本原因<br/>找到确切原因]
+    Root --> Fix[7. 修复并验证<br/>修复 + 测试]
+    Fix --> Done([结束])
 ```
 
 ## 四阶段调试法
