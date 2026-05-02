@@ -15,22 +15,13 @@ description: "Use when facing 2+ independent tasks that can be worked on without
 
 ## 何时使用
 
-```dot
-digraph when_to_use {
-    "多个失败？" [shape=diamond];
-    "它们是独立的吗？" [shape=diamond];
-    "单个 Agent 调查所有" [shape=box];
-    "每个问题域一个 Agent" [shape=box];
-    "能并行工作吗？" [shape=diamond];
-    "顺序 Agent" [shape=box];
-    "并行分派" [shape=box];
-
-    "多个失败？" -> "它们是独立的吗？" [label="是"];
-    "它们是独立的吗？" -> "单个 Agent 调查所有" [label="否 - 相关"];
-    "它们是独立的吗？" -> "能并行工作吗？" [label="是"];
-    "能并行工作吗？" -> "并行分派" [label="是"];
-    "能并行工作吗？" -> "顺序 Agent" [label="否 - 共享状态"];
-}
+```mermaid
+flowchart TD
+    A{多个失败？} -->|是| B{它们是独立的吗？}
+    B -->|否 - 相关| C[单个 Agent 调查所有]
+    B -->|是| D{能并行工作吗？}
+    D -->|是| E[并行分派]
+    D -->|否 - 共享状态| F[顺序 Agent]
 ```
 
 **使用时机：**

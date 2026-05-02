@@ -72,7 +72,7 @@ sw-finishing-branch (Finalización de Rama)
 | Habilidad | Propósito | Condición de Activación |
 |-----------|-----------|-------------------------|
 | **sw-brainstorming** | Transformar ideas en diseño y especificaciones completas | Iniciando desarrollo de nueva función |
-| **sw-writing-specs** | Crear planes de implementación detallados | Diseño aprobado, se necesita plan de ejecución |
+| **sw-writing-specs** | Crear planes de implementación detallados | Diseño completado, se necesita plan de ejecución |
 | **sw-subagent-development** | Ejecutar planes usando subagentes | Tener plan de implementación, las tareas son independientes |
 | **sw-test-driven-dev** | Aplicar ciclo RED-GREEN-REFACTOR | Implementar cualquier función o corregir errores |
 | **sw-requesting-code-review** | Despachar subagente revisor de código | Después de tarea, antes de merge |

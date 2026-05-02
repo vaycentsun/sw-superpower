@@ -17,63 +17,36 @@ description: "Use when all development tasks in the project are complete and rea
 
 ## 何时使用
 
-```dot
-digraph when_to_use {
-  rankdir=TB;
-  
-  all_tasks [label="所有任务完成？", shape=diamond];
-  tests_pass [label="所有测试通过？", shape=diamond];
-  finish [label="sw-finishing-branch", shape=box];
-  fix_tests [label="修复测试", shape=box];
-  more_tasks [label="继续任务", shape=box];
-  
-  all_tasks -> tests_pass [label="是"];
-  all_tasks -> more_tasks [label="否"];
-  tests_pass -> finish [label="是"];
-  tests_pass -> fix_tests [label="否"];
-  fix_tests -> tests_pass;
-}
+```mermaid
+flowchart TD
+    A{所有任务完成？} -->|是| B{所有测试通过？}
+    A -->|否| C[继续任务]
+    B -->|是| D[sw-finishing-branch]
+    B -->|否| E[修复测试]
+    E --> B
 ```
 
 ## 完成流程
 
-```dot
-digraph finish_process {
-  rankdir=TB;
-  
-  start [label="开始", shape=ellipse];
-  verify_tests [label="1. 验证所有测试\n运行完整测试套件", shape=box];
-  tests_ok [label="测试通过？", shape=diamond];
-  fix_tests [label="修复失败的测试", shape=box];
-  final_review [label="2. 最终代码审查\n(可选子 Agent)", shape=box];
-  present_options [label="3. 呈现完成选项", shape=box];
-  user_choice [label="用户选择", shape=diamond];
-  merge [label="4a. 合并到 main", shape=box];
-  create_pr [label="4b. 创建 PR", shape=box];
-  keep [label="4c. 保留分支", shape=box];
-  discard [label="4d. 丢弃分支", shape=box];
-  cleanup [label="5. 清理工作区", shape=box];
-  update_spec [label="6. 更新 Spec 状态", shape=box];
-  done [label="完成", shape=ellipse];
-  
-  start -> verify_tests;
-  verify_tests -> tests_ok;
-  tests_ok -> fix_tests [label="否"];
-  fix_tests -> verify_tests;
-  tests_ok -> final_review [label="是"];
-  final_review -> present_options;
-  present_options -> user_choice;
-  user_choice -> merge [label="合并"];
-  user_choice -> create_pr [label="PR"];
-  user_choice -> keep [label="保留"];
-  user_choice -> discard [label="丢弃"];
-  merge -> cleanup;
-  create_pr -> cleanup;
-  keep -> cleanup;
-  discard -> cleanup;
-  cleanup -> update_spec;
-  update_spec -> done;
-}
+```mermaid
+flowchart TD
+    Start([开始]) --> VerifyTests[1. 验证所有测试<br/>运行完整测试套件]
+    VerifyTests --> TestsOk{测试通过？}
+    TestsOk -->|否| FixTests[修复失败的测试]
+    FixTests --> VerifyTests
+    TestsOk -->|是| FinalReview[2. 最终代码审查<br/>可选子 Agent]
+    FinalReview --> PresentOptions[3. 呈现完成选项]
+    PresentOptions --> UserChoice{用户选择}
+    UserChoice -->|合并| Merge[4a. 合并到 main]
+    UserChoice -->|PR| CreatePR[4b. 创建 PR]
+    UserChoice -->|保留| Keep[4c. 保留分支]
+    UserChoice -->|丢弃| Discard[4d. 丢弃分支]
+    Merge --> Cleanup[5. 清理工作区]
+    CreatePR --> Cleanup
+    Keep --> Cleanup
+    Discard --> Cleanup
+    Cleanup --> UpdateSpec[6. 更新 Spec 状态]
+    UpdateSpec --> Done([完成])
 ```
 
 ## 详细步骤

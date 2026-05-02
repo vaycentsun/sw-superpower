@@ -58,36 +58,20 @@ NO SKILL WITHOUT A FAILING TEST FIRST
 
 ## Skill 创建流程
 
-```dot
-digraph skill_creation {
-  rankdir=TB;
-  
-  start [label="开始", shape=ellipse];
-  identify_need [label="1. 识别需求\n什么行为需要塑造？", shape=box];
-  create_scenario [label="2. 创建压力场景\n3+ 种压力组合", shape=box];
-  run_baseline [label="3. 运行基线测试\n无 Skill 观察失败", shape=box];
-  document_failures [label="4. 记录失败\n确切行为和借口", shape=box];
-  write_skill [label="5. 编写 Skill\n解决特定失败", shape=box];
-  run_with_skill [label="6. 带 Skill 运行\n验证合规", shape=box];
-  passes [label="通过？", shape=diamond];
-  close_loopholes [label="7. 关闭漏洞\n找到新借口，添加对策", shape=box];
-  refactor [label="8. 重构\n保持合规，改进清晰", shape=box];
-  deploy [label="9. 部署\n提交到 git", shape=box];
-  done [label="完成", shape=ellipse];
-  
-  start -> identify_need;
-  identify_need -> create_scenario;
-  create_scenario -> run_baseline;
-  run_baseline -> document_failures;
-  document_failures -> write_skill;
-  write_skill -> run_with_skill;
-  run_with_skill -> passes;
-  passes -> close_loopholes [label="否"];
-  close_loopholes -> run_with_skill;
-  passes -> refactor [label="是"];
-  refactor -> deploy;
-  deploy -> done;
-}
+```mermaid
+flowchart TD
+    Start([开始]) --> Identify[1. 识别需求<br/>什么行为需要塑造？]
+    Identify --> Create[2. 创建压力场景<br/>3+ 种压力组合]
+    Create --> Baseline[3. 运行基线测试<br/>无 Skill 观察失败]
+    Baseline --> Document[4. 记录失败<br/>确切行为和借口]
+    Document --> Write[5. 编写 Skill<br/>解决特定失败]
+    Write --> RunWith[6. 带 Skill 运行<br/>验证合规]
+    RunWith --> Passes{通过？}
+    Passes -->|否| Close[7. 关闭漏洞<br/>找到新借口，添加对策]
+    Close --> RunWith
+    Passes -->|是| Refactor[8. 重构<br/>保持合规，改进清晰]
+    Refactor --> Deploy[9. 部署<br/>提交到 git]
+    Deploy --> Done([完成])
 ```
 
 ## 详细步骤
@@ -280,14 +264,14 @@ example-js.js, example-py.py, example-go.go
 **为什么坏**: 质量平庸，维护负担
 
 ### ❌ 流程图中的代码
-```dot
-step1 [label="import fs"];
-step2 [label="read file"];
+```text
+step1 = "import fs"
+step2 = "read file"
 ```
 **为什么坏**: 不能复制粘贴，难读
 
 ### ❌ 通用标签
-```dot
+```text
 helper1, helper2, step3, pattern4
 ```
 **为什么坏**: 标签应该有语义意义

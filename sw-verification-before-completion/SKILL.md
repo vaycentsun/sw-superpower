@@ -32,55 +32,30 @@ NO COMPLETION WITHOUT VERIFICATION
 
 ## 何时使用
 
-```dot
-digraph when_to_use {
-  rankdir=TB;
-  
-  task_done [label="任务完成？", shape=diamond];
-  tests_pass [label="测试通过？", shape=diamond];
-  ready_complete [label="准备标记完成？", shape=diamond];
-  verify [label="sw-verification-before-completion", shape=box];
-  
-  task_done -> verify [label="是"];
-  tests_pass -> verify [label="是"];
-  ready_complete -> verify [label="是"];
-}
+```mermaid
+flowchart TD
+    A[任务完成？] -->|是| D[sw-verification-before-completion]
+    B[测试通过？] -->|是| D
+    C[准备标记完成？] -->|是| D
 ```
 
 ## 验证流程
 
-```dot
-digraph verification_process {
-  rankdir=TB;
-
-  start [label="开始验证", shape=ellipse];
-  scope [label="0. 确认变更范围\n代码范围+影响范围", shape=box];
-  review_spec [label="1. 回顾需求\n检查原始 Spec", shape=box];
-  checklist [label="2. 执行验证清单", shape=box];
-  functional [label="功能验证", shape=box];
-  edge_cases [label="边界情况", shape=box];
-  error_handling [label="错误处理", shape=box];
-  integration [label="集成验证", shape=box];
-  all_pass [label="全部通过？", shape=diamond];
-  fix_issues [label="3. 修复问题", shape=box];
-  document [label="4. 记录证据\n截图、日志、测试结果", shape=box];
-  mark_complete [label="5. 标记完成", shape=box];
-  done [label="结束", shape=ellipse];
-
-  start -> scope;
-  scope -> review_spec;
-  review_spec -> checklist;
-  checklist -> functional;
-  functional -> edge_cases;
-  edge_cases -> error_handling;
-  error_handling -> integration;
-  integration -> all_pass;
-  all_pass -> fix_issues [label="否"];
-  fix_issues -> checklist;
-  all_pass -> document [label="是"];
-  document -> mark_complete;
-  mark_complete -> done;
-}
+```mermaid
+flowchart TD
+    Start([开始验证]) --> Scope[0. 确认变更范围<br/>代码范围+影响范围]
+    Scope --> ReviewSpec[1. 回顾需求<br/>检查原始 Spec]
+    ReviewSpec --> Checklist[2. 执行验证清单]
+    Checklist --> Functional[功能验证]
+    Functional --> EdgeCases[边界情况]
+    EdgeCases --> ErrorHandling[错误处理]
+    ErrorHandling --> Integration[集成验证]
+    Integration --> AllPass{全部通过？}
+    AllPass -->|否| FixIssues[3. 修复问题]
+    FixIssues --> Checklist
+    AllPass -->|是| Document[4. 记录证据<br/>截图、日志、测试结果]
+    Document --> MarkComplete[5. 标记完成]
+    MarkComplete --> Done([结束])
 ```
 
 ## 验证未通过时的处理

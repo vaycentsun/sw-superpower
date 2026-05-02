@@ -61,34 +61,20 @@ Superpowers 技能覆盖默认系统提示行为，但**用户指令始终优先
 
 **在做出任何回应或行动之前调用相关或被请求的技能。** 即使只有 1% 的概率某个技能可能适用，你也应该调用该技能来检查。如果被调用的技能结果不适用于当前情况，你不需要使用它。
 
-```dot
-digraph skill_flow {
-    "收到用户消息" [shape=doublecircle];
-    "即将进入计划模式？" [shape=doublecircle];
-    "已经头脑风暴过？" [shape=diamond];
-    "调用 brainstorming 技能" [shape=box];
-    "可能有技能适用？" [shape=diamond];
-    "调用 Skill 工具" [shape=box];
-    "宣布：'使用 [skill] 来 [目的]'" [shape=box];
-    "有检查清单？" [shape=diamond];
-    "创建 TodoWrite 待办" [shape=box];
-    "严格遵循技能" [shape=box];
-    "回应（包括澄清问题）" [shape=doublecircle];
-
-    "即将进入计划模式？" -> "已经头脑风暴过？";
-    "已经头脑风暴过？" -> "调用 brainstorming 技能" [label="否"];
-    "已经头脑风暴过？" -> "可能有技能适用？" [label="是"];
-    "调用 brainstorming 技能" -> "可能有技能适用？";
-
-    "收到用户消息" -> "可能有技能适用？";
-    "可能有技能适用？" -> "调用 Skill 工具" [label="是，哪怕 1%"];
-    "可能有技能适用？" -> "回应（包括澄清问题）" [label="绝对不是"];
-    "调用 Skill 工具" -> "宣布：'使用 [skill] 来 [目的]'";
-    "宣布：'使用 [skill] 来 [目的]'" -> "有检查清单？";
-    "有检查清单？" -> "创建 TodoWrite 待办" [label="是"];
-    "有检查清单？" -> "严格遵循技能" [label="否"];
-    "创建 TodoWrite 待办" -> "严格遵循技能";
-}
+```mermaid
+flowchart TD
+    Start1[收到用户消息] --> Check{可能有技能适用？}
+    Start2[即将进入计划模式？] --> Brainstormed{已经头脑风暴过？}
+    Brainstormed -->|否| CallBrain[调用 brainstorming 技能]
+    Brainstormed -->|是| Check
+    CallBrain --> Check
+    Check -->|是，哪怕 1%| Invoke[调用 Skill 工具]
+    Check -->|绝对不是| Respond[回应（包括澄清问题）]
+    Invoke --> Announce[宣布：使用 skill 来 目的]
+    Announce --> HasChecklist{有检查清单？}
+    HasChecklist -->|是| Todo[创建 TodoWrite 待办]
+    HasChecklist -->|否| Follow[严格遵循技能]
+    Todo --> Follow
 ```
 
 ## 红旗

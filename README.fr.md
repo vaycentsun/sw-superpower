@@ -72,7 +72,7 @@ sw-finishing-branch (Achèvement de Branche)
 | Compétence | Objectif | Condition de Déclenchement |
 |------------|----------|----------------------------|
 | **sw-brainstorming** | Transformer les idées en conception et spécifications complètes | Démarrage du développement d'une nouvelle fonctionnalité |
-| **sw-writing-specs** | Créer des plans d'implémentation détaillés | Conception approuvée, besoin d'un plan d'exécution |
+| **sw-writing-specs** | Créer des plans d'implémentation détaillés | Conception terminée, besoin d'un plan d'exécution |
 | **sw-subagent-development** | Exécuter les plans en utilisant des sous-agents | Avoir un plan d'implémentation, les tâches sont indépendantes |
 | **sw-test-driven-dev** | Appliquer le cycle RED-GREEN-REFACTOR | Implémenter toute fonctionnalité ou corriger des bogues |
 | **sw-requesting-code-review** | Dispatcher un sous-agent réviseur | Après tâche, avant merge |

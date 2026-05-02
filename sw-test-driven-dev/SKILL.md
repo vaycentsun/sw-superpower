@@ -38,29 +38,18 @@ NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST
 
 ## RED-GREEN-REFACTOR 循环
 
-```dot
-digraph tdd_cycle {
-  rankdir=TB;
-  
-  red [label="RED\n编写失败测试", shape=box, style=filled, fillcolor="#ffcccc"];
-  verify_red [label="验证正确失败？", shape=diamond];
-  fix_red [label="修复测试错误\n（拼写、导入等）", shape=box];
-  green [label="GREEN\n编写最简代码", shape=box, style=filled, fillcolor="#ccffcc"];
-  verify_green [label="验证全部通过？", shape=diamond];
-  refactor [label="REFACTOR\n清理代码", shape=box, style=filled, fillcolor="#ccccff"];
-  next [label="下一个测试", shape=ellipse];
-  
-  red -> verify_red;
-  verify_red -> fix_red [label="测试报错"];
-  fix_red -> verify_red;
-  verify_red -> green [label="正确失败"];
-  green -> verify_green;
-  verify_green -> green [label="未通过"];
-  verify_green -> refactor [label="全部通过"];
-  refactor -> verify_green [label="保持通过"];
-  verify_green -> next [label="完成重构"];
-  next -> red;
-}
+```mermaid
+flowchart TD
+    Red[RED<br/>编写失败测试] --> VerifyRed{验证正确失败？}
+    VerifyRed -->|测试报错| FixRed[修复测试错误<br/>拼写、导入等]
+    FixRed --> VerifyRed
+    VerifyRed -->|正确失败| Green[GREEN<br/>编写最简代码]
+    Green --> VerifyGreen{验证全部通过？}
+    VerifyGreen -->|未通过| Green
+    VerifyGreen -->|全部通过| Refactor[REFACTOR<br/>清理代码]
+    Refactor -->|保持通过| VerifyGreen
+    VerifyGreen -->|完成重构| Next([下一个测试])
+    Next --> Red
 ```
 
 ## 详细流程
