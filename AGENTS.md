@@ -25,15 +25,13 @@
 - **Skill**: `sw-<skill-name>/SKILL.md`
 - **Subagent 提示词**: `subagent-prompts/<name>-prompt.md`
 
-> `docs/sw-agiledevelopment/` 和 `subagent-prompts/` 按需创建即可。
-
 ### 指令优先级
 本项目的技能覆盖默认系统提示，但**用户指令始终优先**：
 1. 用户的明确指令（`OPENCODE.md`、`CLAUDE.md`、`GEMINI.md`、`AGENTS.md`、直接请求）
 2. sw-agiledevelopment 技能
 3. 默认系统提示
 
-如果你编辑包含硬规则的技能（如"始终使用 TDD"），**不要**弱化它们。
+编辑包含硬规则的技能（如"始终使用 TDD"）时，**不要**弱化它们。
 
 ## SKILL.md 约束（pre-push 钩子强制执行）
 
@@ -51,19 +49,18 @@ ln -s ../../hooks/pre-push .git/hooks/pre-push
 | **红旗章节** | 必须包含 `## 红旗` 章节 |
 | **常见借口表** | 必须包含常见借口表格（如 `| 想法 | 现实 |`） |
 | **命名一致** | 目录名必须匹配 `sw-<skill-name>/`，且与 frontmatter 中的 `name:` 字段一致 |
+| **CSO description** | `description` 字段必须符合 CSO（Claude Search Optimization）规则；pre-push 会调用 `scripts/validate-skill-descriptions.sh` |
 
 ## 添加或编辑技能
 1. 创建 `sw-<name>/` 目录并放入 `SKILL.md`。
 2. 包含 frontmatter、`## 红旗` 章节、常见借口表。
 3. 遵循 `docs/terminology.md` 的中英文术语规范。
 4. 如果超过 600 行，在同一目录内拆分（如 `SKILL.md` + `advanced.md`）。
-5. 提交前确保 `git push --dry-run` 通过 pre-push 验证。
+5. 提交前运行 `git push --dry-run`，确保通过 pre-push 验证。
 
 ## 验证与安装检查脚本
 
-pre-push 钩子已包含 SKILL.md 结构检查和 description 字段的 CSO（Claude Search Optimization）校验。
-
-安装到对应平台后，可运行以下脚本快速验证插件/Agent 是否正确接入：
+这些脚本只在开发或安装验证时运行，不影响 Agent 使用 skill 后的研发速度：
 
 ```bash
 bash scripts/validate-skill-descriptions.sh   # 校验所有 skill 的 description 是否符合 CSO
@@ -74,8 +71,6 @@ bash scripts/verify-copilot.sh                # 验证 Copilot 指令文件
 bash scripts/verify-lingma.sh                 # 验证 Lingma Agent 引导文件
 bash scripts/verify-androidstudio.sh          # 验证 Android Studio 引导文件
 ```
-
-这些脚本只在开发或安装验证时运行，不影响 Agent 使用 skill 后的研发速度。
 
 ## 版本号管理
 `VERSION` 文件是唯一的版本来源。**不要**手动编辑 `package.json` 中的版本号：
