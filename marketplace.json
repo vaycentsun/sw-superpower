@@ -1,0 +1,44 @@
+{
+  "name": "sw-agiledevelopment",
+  "version": 1,
+  "description": "Agile development workflow skills for AI coding agents: requirements clarification, technical specs, planning, TDD, systematic debugging, code review, and more.",
+  "description_i18n": {
+    "en": "Agile development workflow skills for AI coding agents: requirements clarification, technical specs, planning, TDD, systematic debugging, code review, and more.",
+    "zh-CN": "面向 AI 编码智能体的敏捷开发流程技能集：需求澄清、技术方案、工作计划、测试驱动开发、系统化调试、代码评审等。"
+  },
+  "owner": {
+    "name": "vaycentsun",
+    "url": "https://github.com/vaycentsun"
+  },
+  "plugins": [
+    {
+      "name": "sw-agiledevelopment",
+      "source": "./",
+      "version": "1.4.0",
+      "displayName": "Agile Development",
+      "displayName_i18n": {
+        "en": "Agile Development",
+        "zh-CN": "敏捷开发流程"
+      },
+      "description": "Agile development workflow skills for AI coding agents: requirements clarification, technical specs, planning, TDD, systematic debugging, code review, and more. Injects a workflow bootstrap into every new session via a SessionStart hook.",
+      "description_i18n": {
+        "en": "Agile development workflow skills for AI coding agents: requirements clarification, technical specs, planning, TDD, systematic debugging, code review, and more. Injects a workflow bootstrap into every new session via a SessionStart hook.",
+        "zh-CN": "面向 AI 编码智能体的敏捷开发流程技能集：需求澄清、技术方案、工作计划、测试驱动开发、系统化调试、代码评审等。通过 SessionStart 钩子把流程引导注入每个新会话。"
+      },
+      "author": {
+        "name": "vaycentsun",
+        "url": "https://github.com/vaycentsun"
+      },
+      "category": "developer-tools",
+      "keywords": [
+        "skills",
+        "agile",
+        "software-development",
+        "workflow",
+        "tdd",
+        "code-review",
+        "debugging"
+      ]
+    }
+  ]
+}
