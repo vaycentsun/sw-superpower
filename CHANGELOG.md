@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Root `marketplace.json` so the repository can be added directly as a ZCode marketplace (Settings → Plugin Management → Discover → +), giving users one-click installs and upgrades.
+- `scripts/verify-zcode.sh` now also checks that `plugin.json` version matches `VERSION`, that the manifest declares hooks, and that `marketplace.json` is valid.
+
+### Fixed
+- Synchronized `.zcode-plugin/plugin.json` version with `VERSION` (`1.4.0`).
+- Declared `"hooks": ".zcode-plugin/hooks/hooks.json"` in the ZCode manifest and fixed the hook command path to resolve `run-hook.cmd` under `.zcode-plugin/hooks/`, so the SessionStart bootstrap loads when the plugin is installed from a marketplace.
+- `scripts/bump-version.sh` now keeps `.zcode-plugin/plugin.json` and `marketplace.json` in sync on future releases.
+
+### Changed
+- Simplified `scripts/install-zcode.sh`: it now registers the clone directory directly in `plugins.dirs` instead of building a versioned symlink staging cache.
+- Rewrote `.zcode-plugin/INSTALL.md` and the ZCode sections of `README.md` / `README.zh.md` for the marketplace install flow.
+
 ## [1.4.0] - 2026-06-25
 
 ### Changed

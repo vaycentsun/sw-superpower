@@ -16,6 +16,41 @@ else
     echo "  [PASS] ZCode plugin manifest exists"
 fi
 
+# The manifest version must match the VERSION file (the single source of truth).
+if [ -f "$manifest" ] && [ -f "$REPO_ROOT/VERSION" ] && command -v python3 >/dev/null 2>&1; then
+    manifest_version=$(python3 -c "import json;print(json.load(open('$manifest'))['version'])" 2>/dev/null || echo "")
+    repo_version=$(tr -d '[:space:]' < "$REPO_ROOT/VERSION")
+    if [ -n "$manifest_version" ] && [ "$manifest_version" = "$repo_version" ]; then
+        echo "  [PASS] plugin.json version matches VERSION ($repo_version)"
+    else
+        echo "  [FAIL] plugin.json version '$manifest_version' does not match VERSION '$repo_version'"
+        FAILED=1
+    fi
+fi
+
+# The manifest must declare the hooks file — without it the SessionStart hook
+# is not loaded when the plugin is installed from a marketplace.
+if [ -f "$manifest" ] && command -v python3 >/dev/null 2>&1; then
+    if python3 -c "import json,sys; sys.exit(0 if json.load(open('$manifest')).get('hooks') else 1)" 2>/dev/null; then
+        echo "  [PASS] plugin.json declares a hooks entry"
+    else
+        echo "  [FAIL] plugin.json does not declare hooks (add \"hooks\": \".zcode-plugin/hooks/hooks.json\")"
+        FAILED=1
+    fi
+fi
+
+# Root marketplace.json lets others add this repo as a ZCode marketplace.
+marketplace_json="$REPO_ROOT/marketplace.json"
+if [ ! -f "$marketplace_json" ]; then
+    echo "  [FAIL] Missing marketplace.json at repository root"
+    FAILED=1
+elif command -v python3 >/dev/null 2>&1 && ! python3 -c "import json;json.load(open('$marketplace_json'))" 2>/dev/null; then
+    echo "  [FAIL] marketplace.json is not valid JSON"
+    FAILED=1
+else
+    echo "  [PASS] marketplace.json exists and is valid JSON"
+fi
+
 hooks_json="$REPO_ROOT/.zcode-plugin/hooks/hooks.json"
 if [ ! -f "$hooks_json" ]; then
     echo "  [FAIL] Missing hooks.json: $hooks_json"

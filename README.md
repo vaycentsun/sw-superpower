@@ -66,9 +66,11 @@ The Agent will read the install guide, configure the agent, and verify the setup
 
 **ZCode Plugin**
 
-Tell your AI Agent:
+In the ZCode client, open **Settings → Plugin Management → Discover**, click **+**, add the marketplace `vaycentsun/sw-agiledevelopment`, then click **Get** on the plugin card. Upgrades are one click when a new version is published.
 
-> "Install the sw-agiledevelopment ZCode plugin from https://github.com/vaycentsun/sw-agiledevelopment and follow the instructions in `.zcode/INSTALL.md`."
+Or tell your AI Agent:
+
+> "Install the sw-agiledevelopment ZCode plugin from https://github.com/vaycentsun/sw-agiledevelopment and follow the instructions in `.zcode-plugin/INSTALL.md`."
 
 The Agent will read the install guide, register the plugin (via marketplace or filesystem install), and verify that the SessionStart bootstrap hook injects the agile workflow into every new session.
 

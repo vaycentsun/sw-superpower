@@ -96,7 +96,25 @@ if [ -f "$PROJECT_ROOT/.codex-plugin/plugin.json" ]; then
 fi
 
 # -----------------------------------------------------------------------------
-# 5. 更新 CHANGELOG.md（添加新版本条目）
+# 5. 更新 .zcode-plugin/plugin.json（ZCode 插件清单）
+# -----------------------------------------------------------------------------
+if [ -f "$PROJECT_ROOT/.zcode-plugin/plugin.json" ]; then
+    sed -i.bak "s/\"version\": \"$CURRENT_VERSION\"/\"version\": \"$NEW_VERSION\"/" "$PROJECT_ROOT/.zcode-plugin/plugin.json"
+    rm -f "$PROJECT_ROOT/.zcode-plugin/plugin.json.bak"
+    echo "   ✅ .zcode-plugin/plugin.json"
+fi
+
+# -----------------------------------------------------------------------------
+# 6. 更新 marketplace.json（ZCode 市场中插件条目的版本号；顶层整数 version 不动）
+# -----------------------------------------------------------------------------
+if [ -f "$PROJECT_ROOT/marketplace.json" ]; then
+    sed -i.bak "s/\"version\": \"$CURRENT_VERSION\"/\"version\": \"$NEW_VERSION\"/" "$PROJECT_ROOT/marketplace.json"
+    rm -f "$PROJECT_ROOT/marketplace.json.bak"
+    echo "   ✅ marketplace.json"
+fi
+
+# -----------------------------------------------------------------------------
+# 7. 更新 CHANGELOG.md（添加新版本条目）
 # -----------------------------------------------------------------------------
 if [ -f "$PROJECT_ROOT/CHANGELOG.md" ]; then
     TODAY=$(date +%Y-%m-%d)

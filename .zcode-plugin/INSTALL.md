@@ -13,63 +13,66 @@ start.
 
 ## What this installs
 
-- Marketplace source: `vaycentsun/sw-agiledevelopment`
+- Marketplace source: `vaycentsun/sw-agiledevelopment` (the repository root
+  carries a ZCode `marketplace.json`; the plugin itself is the repo root)
 - Plugin name: `sw-agiledevelopment`
-- Plugin version: see the `VERSION` file (currently `1.3.2`)
+- Plugin version: see the `VERSION` file (currently `1.4.0`)
 - Plugin capabilities: **ZCode Skills only**. This plugin does not expose MCP
   tools or callable functions. It injects a bootstrap context via a `SessionStart`
   hook.
 
 ## How the plugin is structured
 
-The plugin manifest lives at `.zcode-plugin/plugin.json` and declares
-`"skills": "skills"`, pointing at the repository-root `skills/` directory (a set
-of symlinks to the real `sw-*/` source directories). A `SessionStart` hook in
-`.zcode-plugin/hooks/` reads `sw-using-agiledevelopment/SKILL.md` and injects it
-into each new session — this is what makes the agile workflow reliably activate.
+The plugin manifest lives at `.zcode-plugin/plugin.json` and declares:
+
+- `"skills": "skills"` — the repository-root `skills/` directory (a set of
+  symlinks to the real `sw-*/` source directories, so all agent platforms share
+  one copy of the content);
+- `"hooks": ".zcode-plugin/hooks/hooks.json"` — a `SessionStart` hook that reads
+  `sw-using-agiledevelopment/SKILL.md` and injects it into each new session.
+  This is what makes the agile workflow reliably activate.
 
 ## Prerequisites
 
 1. Confirm the user wants this installed in their ZCode environment.
-2. Confirm a ZCode installation is present. Look for one of:
-   - The `zcode` CLI on `PATH` (`zcode --version`), or
-   - The ZCode config directory at `~/.zcode/cli/plugins/`.
-3. Confirm `git`, `bash`/`zsh`, and `python3` are available (needed to clone,
-   run the SessionStart hook, and update the ZCode config on Unix; on Windows
-   the polyglot `run-hook.cmd` wrapper locates bash automatically).
+2. Confirm a ZCode installation is present. Look for the ZCode config directory
+   at `~/.zcode/cli/plugins/`.
+3. For the UI-free fallback only: `git`, `bash`/`zsh`, and `python3` (on Windows
+   the polyglot `run-hook.cmd` wrapper locates bash automatically at hook
+   runtime).
 
 If ZCode is not present at all, stop and tell the user ZCode must be installed
 first.
 
 ## Install Steps
 
-### Option A — Via ZCode marketplace (preferred when the CLI is available)
+### Option A — ZCode marketplace (preferred)
 
-If the `zcode` CLI is available and exposes a plugin marketplace command, add
-this repository as a marketplace and install the plugin. Run:
+This is the path that gives the user one-click upgrades later.
 
-```bash
-zcode plugin marketplace add vaycentsun/sw-agiledevelopment --ref main
-```
+1. In the ZCode client, open **Settings → Plugin Management → Discover**.
+2. Click the **+** button and add the marketplace:
+   `vaycentsun/sw-agiledevelopment`
+   (a GitHub repository; a full Git URL also works:
+   `https://github.com/vaycentsun/sw-agiledevelopment.git`).
+3. Find the `sw-agiledevelopment` plugin card and click **Get**. New plugins
+   are enabled by default.
+4. Fully restart ZCode (Cmd + Q / Quit, then reopen) if the skills do not
+   appear in the current session.
 
-Then open the ZCode plugin interface (`zcode plugin` or the `/plugins` panel
-inside ZCode) and install `sw-agiledevelopment` from the `sw-agiledevelopment`
-marketplace.
+If you are an agent performing this for the user and cannot drive the UI, use
+Option B instead.
 
-> If the CLI's marketplace subcommand names differ across versions, prefer
-> whatever the CLI documents for "add a GitHub marketplace" / "install a plugin
-> from a marketplace". Do not invent flags.
+**Upgrading (Option A installs):** when the repository publishes a new version,
+the Discover/Installed view shows an update for the plugin; clicking it pulls
+the latest commit. No manual steps are needed.
 
-### Option B — Manual filesystem install (always works)
+### Option B — UI-free filesystem install (fallback)
 
-Use this when there is no `zcode` CLI or the marketplace command is unavailable.
-ZCode discovers user plugins through `plugins.dirs` in
-`~/.zcode/cli/config.json`, not through marketplace JSON files, so the install
-follows that path.
-
-#### One-step install (recommended)
-
-Clone the repository, then run the installer script:
+Use this when the marketplace UI is unavailable or the install must be
+scripted. ZCode discovers user plugins through `plugins.dirs` in
+`~/.zcode/cli/config.json`; the installer clones the repository and registers
+the clone directory there.
 
 ```bash
 git clone https://github.com/vaycentsun/sw-agiledevelopment.git \
@@ -78,100 +81,41 @@ git clone https://github.com/vaycentsun/sw-agiledevelopment.git \
 bash "$HOME/.zcode/cli/plugins/cache/sw-agiledevelopment-src/sw-agiledevelopment/scripts/install-zcode.sh"
 ```
 
-The script will create a versioned plugin cache matching ZCode's official layout,
-register the plugin in `~/.zcode/cli/config.json`, and verify the SessionStart
-hook. Then fully restart ZCode.
+The script clones (or updates) the repository, registers it in
+`~/.zcode/cli/config.json`, and verifies the SessionStart hook. Then fully
+restart ZCode.
 
-#### Manual equivalent
-
-If you cannot run the installer script, do the same steps by hand:
-
-```bash
-# 1. Clone (or update) the source repository.
-SRC="$HOME/.zcode/cli/plugins/cache/sw-agiledevelopment-src/sw-agiledevelopment"
-if [ -d "$SRC/.git" ]; then
-  git -C "$SRC" pull --ff-only
-else
-  git clone https://github.com/vaycentsun/sw-agiledevelopment.git "$SRC"
-fi
-
-# 2. Build a versioned plugin cache that mirrors the official layout.
-VERSION=$(cat "$SRC/VERSION")
-DST="$HOME/.zcode/cli/plugins/cache/sw-agiledevelopment/sw-agiledevelopment/$VERSION"
-rm -rf "$DST"
-mkdir -p "$DST"
-
-ln -s "../../../sw-agiledevelopment-src/sw-agiledevelopment/.zcode-plugin" "$DST/.zcode-plugin"
-ln -s "../../../sw-agiledevelopment-src/sw-agiledevelopment/package.json" "$DST/package.json"
-[ -f "$SRC/README.md" ] && ln -s "../../../sw-agiledevelopment-src/sw-agiledevelopment/README.md" "$DST/README.md"
-
-mkdir -p "$DST/skills"
-for d in "$SRC"/sw-*/; do
-  name=$(basename "$d")
-  ln -s "$(cd "$d" && pwd)" "$DST/skills/$name"
-done
-
-mkdir -p "$DST/hooks"
-cp "$SRC/.zcode-plugin/hooks/run-hook.cmd" "$DST/hooks/run-hook.cmd"
-cp "$SRC/.zcode-plugin/hooks/hooks.json" "$DST/hooks/hooks.json"
-cat > "$DST/hooks/session-start" <<'EOF'
-#!/usr/bin/env bash
-set -euo pipefail
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-PLUGIN_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
-exec bash "${PLUGIN_ROOT}/.zcode-plugin/hooks/session-start" "$@"
-EOF
-chmod +x "$DST/hooks/session-start" "$DST/hooks/run-hook.cmd"
-
-# 3. Register the plugin in ZCode's plugin config.
-python3 - "$DST" "$HOME/.zcode/cli/config.json" <<'PY'
-import json, os, sys
-dst_dir = sys.argv[1]
-config_path = sys.argv[2]
-
-cfg = {}
-if os.path.exists(config_path):
-    with open(config_path, "r", encoding="utf-8") as f:
-        cfg = json.load(f)
-if not isinstance(cfg, dict):
-    cfg = {}
-
-cfg.setdefault("plugins", {})
-cfg["plugins"]["enabled"] = True
-existing = cfg["plugins"].get("dirs", [])
-if not isinstance(existing, list):
-    existing = []
-existing = [d for d in existing if "sw-agiledevelopment/sw-agiledevelopment/" not in d]
-cfg["plugins"]["dirs"] = [dst_dir] + existing
-
-with open(config_path, "w", encoding="utf-8") as f:
-    json.dump(cfg, f, indent=2, ensure_ascii=False)
-    f.write("\n")
-PY
-```
+**Upgrading (Option B installs):** re-run `install-zcode.sh`; it pulls the
+latest `main` and re-verifies the hook.
 
 ## Verify installation
 
-1. Confirm the plugin manifest is reachable:
+1. Confirm the manifest is valid and its version matches the `VERSION` file:
 
 ```bash
-cat "$HOME/.zcode/cli/plugins/cache/sw-agiledevelopment/sw-agiledevelopment/$(cat "$HOME/.zcode/cli/plugins/cache/sw-agiledevelopment-src/sw-agiledevelopment/VERSION")/.zcode-plugin/plugin.json"
+python3 -c "import json; m=json.load(open('.zcode-plugin/plugin.json')); print(m['version'], m['skills'], m['hooks'])"
 ```
 
 2. Confirm the SessionStart hook runs and emits valid JSON context:
 
 ```bash
-DST="$HOME/.zcode/cli/plugins/cache/sw-agiledevelopment/sw-agiledevelopment/$(cat "$HOME/.zcode/cli/plugins/cache/sw-agiledevelopment-src/sw-agiledevelopment/VERSION")"
-bash "$DST/hooks/session-start" | python3 -m json.tool > /dev/null && echo "hook OK"
+bash .zcode-plugin/hooks/session-start | python3 -m json.tool > /dev/null && echo "hook OK"
 ```
 
 This should print `hook OK`. If it prints nothing or errors, the skills path or
 symlinks are wrong — re-check that the clone is intact and
 `skills/sw-using-agiledevelopment/SKILL.md` resolves.
 
-3. Fully restart ZCode (not just a new session). After restart, open the
-   `/plugins` panel: `sw-agiledevelopment` should appear under the `inline`
-   marketplace and be enabled. New sessions will auto-inject the bootstrap.
+3. Or run the full structural check from the repository root:
+
+```bash
+bash scripts/verify-zcode.sh
+```
+
+4. Fully restart ZCode (not just a new session). After restart, open
+   **Settings → Plugin Management**: `sw-agiledevelopment` should be listed and
+   enabled. New sessions will auto-inject the bootstrap; the `sw-*` skills
+   appear under **Settings → Skills**.
 
 ## Success Message
 
@@ -186,17 +130,16 @@ development workflow.
 ## Troubleshooting
 
 - **Marketplace add fails (network / GitHub access):** ask permission to retry
-  with network access, or ask the user to check their connection. Fallback to
-  Option B (manual filesystem install).
+  with network access, or ask the user to check their connection. Behind a
+  proxy, set `ZCODE_HTTP_PROXY=http://host:port` (ZCode reads the proxy only
+  from this variable). Fallback to Option B.
 - **Plugin still does not appear after install:** make sure you fully restarted
-  ZCode (Cmd + Q / Quit, then reopen). ZCode only reads `plugins.dirs` from
-  `~/.zcode/cli/config.json` at app startup; it does **not** read custom
-  marketplace JSON files under `~/.zcode/cli/plugins/marketplaces/`.
+  ZCode (Cmd + Q / Quit, then reopen). Plugin discovery happens at app startup.
 - **Skills present but bootstrap not activating:** the SessionStart hook did not
-  run. Check the latest `bootstrap.app.startup.plugins.completed` log line for
-  `hookCount`; if it is `0`, verify `bash` is available and that the plugin root
-  has a `hooks/` directory containing `hooks.json`, `run-hook.cmd`, and
-  `session-start`.
+  run. Open the plugin's detail view in **Settings → Plugin Management** and
+  confirm the `SessionStart` hook is listed and runnable; verify `bash` is
+  available and `.zcode-plugin/hooks/` contains `hooks.json`, `run-hook.cmd`,
+  and `session-start`.
 - **`session-start` exits with empty output:** confirm `skills/` resolves to the
   real `sw-using-agiledevelopment/` directory. The hook reads
   `${REPO_ROOT}/skills/sw-using-agiledevelopment/SKILL.md`.
@@ -205,3 +148,7 @@ development workflow.
   after installation. The plugin provides Skills such as
   `sw-requirements-clarification` and `sw-test-driven-dev`; it does not provide
   MCP tools.
+- **Windows:** the `skills/` directory uses symlinks, which require Git for
+  Windows to be installed with symlink support (or Developer Mode enabled).
+  Without it, git checks the symlinks out as plain text files and skill
+  discovery fails. macOS and Linux are unaffected.

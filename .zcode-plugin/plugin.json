@@ -1,6 +1,6 @@
 {
   "name": "sw-agiledevelopment",
-  "version": "1.3.2",
+  "version": "1.4.0",
   "description": "Agile development workflow skills for AI coding agents.",
   "author": {
     "name": "vaycentsun",
@@ -16,5 +16,6 @@
     "software-development",
     "zcode"
   ],
-  "skills": "skills"
+  "skills": "skills",
+  "hooks": ".zcode-plugin/hooks/hooks.json"
 }

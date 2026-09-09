@@ -66,9 +66,11 @@ Agent 会自动读取安装指南，配置 agent 并验证安装。
 
 **ZCode 插件**
 
-直接告诉你的 AI Agent：
+在 ZCode 客户端中打开 **设置 → 插件管理 → Discover**，点击 **+** 添加市场 `vaycentsun/sw-agiledevelopment`，然后在插件卡片上点击 **Get** 安装。之后有新版本时可一键升级。
 
-> "从 https://github.com/vaycentsun/sw-agiledevelopment 安装 sw-agiledevelopment ZCode 插件，并参考 `.zcode/INSTALL.md` 中的说明进行安装。"
+或者直接告诉你的 AI Agent：
+
+> "从 https://github.com/vaycentsun/sw-agiledevelopment 安装 sw-agiledevelopment ZCode 插件，并参考 `.zcode-plugin/INSTALL.md` 中的说明进行安装。"
 
 Agent 会自动读取安装指南，通过 marketplace 或文件系统方式注册插件，并验证 SessionStart bootstrap 钩子是否在每次新会话中注入敏捷工作流。
 
