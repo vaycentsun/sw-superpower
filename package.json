@@ -2,7 +2,7 @@
   "name": "sw-agiledevelopment",
   "displayName": "Agile Development - sw-agiledevelopment",
   "description": "Software development skills and workflows for coding with structured methodologies",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "type": "module",
   "publisher": "vaycent",
   "license": "MIT",

@@ -14,7 +14,7 @@
     {
       "name": "sw-agiledevelopment",
       "source": "./",
-      "version": "1.4.0",
+      "version": "1.4.1",
       "displayName": "Agile Development",
       "displayName_i18n": {
         "en": "Agile Development",
