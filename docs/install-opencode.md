@@ -162,7 +162,7 @@ sw-agiledevelopment 在重启 OpenCode 时自动更新（插件方式）。
 
 ```json
 {
-  "plugin": ["sw-agiledevelopment@git+https://github.com/vaycentsun/sw-agiledevelopment.git#v1.4.0"]
+  "plugin": ["sw-agiledevelopment@git+https://github.com/vaycentsun/sw-agiledevelopment.git#v1.4.1"]
 }
 ```
 
